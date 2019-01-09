@@ -5467,10 +5467,13 @@ header .absolute-nav {
     color: #ffffff;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
-    font-size: 1.4rem;
+    font-size: 1.9rem;
     padding: 0;
     cursor: pointer;
-  }
+}
+.cp-nav .navbar-collapse .navbar-nav.account-nav .login-popup button:hover{
+color: #007bff;
+}
   .cp-nav .navbar-collapse .navbar-nav.job-browse {
     margin-left: 40px;
   }
