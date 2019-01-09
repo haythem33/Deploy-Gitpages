@@ -152,11 +152,11 @@ a:focus {
 }
 
 .primary-color {
-  color: #246df8;
+  color:whitesmoke;
 }
 
 .primary-bg {
-  background: #246df8;
+  background: whitesmoke;
 }
 
 .white-text {
@@ -6406,7 +6406,7 @@ header .absolute-nav {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
-  color: #ffffff;
+  color: #246df8;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 1.4rem;
@@ -6953,6 +6953,7 @@ header .absolute-nav {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   margin-bottom: 35px;
+  color: white;
 }
 
 .footer-widget.widget-about .description {
@@ -6985,16 +6986,16 @@ header .absolute-nav {
 }
 
 .footer-widget.footer-shortcut-link ul li {
-  color: #6f7484;
+  color: white;
 }
 
 .footer-widget.footer-shortcut-link ul li:hover {
-  color: #246df8;
+  color: black;
 }
 
 .footer-widget.footer-newsletter p {
   font-size: 1.4rem;
-  color: #6f7484;
+  color: white;
   max-width: 300px;
 }
 
@@ -7003,37 +7004,37 @@ header .absolute-nav {
 }
 
 .footer-widget.footer-newsletter .newsletter-form .form-group .form-control {
-  border-bottom-color: rgba(36, 109, 248, 0.4);
+  border-bottom-color: white;
   font-family: "Poppins", sans-serif;
-  color: #6f7484;
+  color: white;
 }
 
 .footer-widget.footer-newsletter .newsletter-form .form-group .form-control::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  color: #6f7484;
+  color: white;
 }
 
 .footer-widget.footer-newsletter .newsletter-form .form-group .form-control::-moz-placeholder {
   /* Firefox 19+ */
-  color: #6f7484;
+  color: white;
 }
 
 .footer-widget.footer-newsletter .newsletter-form .form-group .form-control:-ms-input-placeholder {
   /* IE 10+ */
-  color: #6f7484;
+  color: white;
 }
 
 .footer-widget.footer-newsletter .newsletter-form .form-group .form-control:-moz-placeholder {
   /* Firefox 18- */
-  color: #6f7484;
+  color: white;
 }
 
 .footer-widget.footer-newsletter .newsletter-form .form-group .form-control:focus {
-  border-bottom-color: #246df8;
+  border-bottom-color: white;
 }
 
 .footer-widget.footer-newsletter .newsletter-form .button {
-  background: #246df8;
+  background: #e5e8eceb;
   border-color: #246df8;
 }
 
