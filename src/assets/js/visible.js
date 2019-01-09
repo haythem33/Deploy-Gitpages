@@ -1,5 +1,6 @@
 (function($){
     'use strict';
+    console.log('tttttttttttttt');
     /**
      * Copyright 2012, Digital Fusion
      * Licensed under the MIT license.
