@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-
+console.log('ttttttttt');
     /*-----------------------------------
     Smooth Scroll
     -----------------------------------*/
@@ -55,13 +55,13 @@ $(document).ready(function() {
       }
       var $subMenu = $(this).next(".dropdown-menu");
       $subMenu.toggleClass('show');
-      
+
       $(this).parent("li").toggleClass('show');
 
       $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
         $('.dropdown-menu .show').removeClass("show");
       });
-      
+
       if (!$parent.parent().hasClass('navbar-nav')) {
         $el.next().css({"top": $el[0].offsetTop, "left": $parent.outerWidth() - 4});
       }
@@ -87,7 +87,7 @@ $(document).ready(function() {
       $('.notification-card').toggleClass('show');
       $('.notification-card').fadeToggle();
     })
- 
+
     $(document).on('click', function(event){
       var clickovr = $(event.target);
       var _open =$('.notification-card').hasClass('show');
@@ -140,7 +140,7 @@ $(document).ready(function() {
     }
 
     topToggler();
-     
+
     /*---------------------------------------------
       Registration Account Type
     ---------------------------------------------*/
@@ -242,7 +242,7 @@ $(document).ready(function() {
     })
 
     /*-----------------------------------
-    CountTo 
+    CountTo
     -----------------------------------*/
     function animateCountTo(ct) {
       if ($.fn.visible && $(ct).visible() && !$(ct).hasClass('animated')) {
@@ -276,12 +276,12 @@ $(document).ready(function() {
       $('.job-filter-result, .candidate-filter-result, .employer-filter-result').removeClass('grid');
       $('.job-filter-result .job-list, .candidate-filter-result .candidate, .employer-filter-result .employer').removeClass('half-grid');
     })
-	
+
     $('.job-view-controller .grid, .candidate-view-controller .grid, .employer-view-controller .grid').on('click', function() {
       $('.job-filter-result, .candidate-filter-result, .employer-filter-result').addClass('grid');
       $('.job-filter-result .job-list, .candidate-filter-result .candidate, .employer-filter-result .employer').addClass('half-grid');
     });
-    
+
     /*----------------------------------------------
     Payment Card
     -----------------------------------------------*/
@@ -313,7 +313,7 @@ $(document).ready(function() {
       $('.selected-options .filtered-options li.' + cls).remove();
       $('.selected-options .filtered-options').append(filteredList);
     });
-  
+
     $(document).on('click', ".selected-options .filtered-options li span", function() {
       $(this).parent('li').remove();
     });
@@ -349,14 +349,14 @@ $(document).ready(function() {
     }
 
     priceRange();
-    
+
     /*-------------------------------------
-      Plyr Js  
+      Plyr Js
     -------------------------------------*/
     plyr.setup();
-    
+
     /*-------------------------------------
-      progressBar  
+      progressBar
       -------------------------------------*/
     function animateProgressBar(pb) {
         if ($.fn.visible && $(pb).visible() && !$(pb).hasClass('animated')) {
@@ -374,7 +374,7 @@ $(document).ready(function() {
 
     initProgressBar();
 
-    
+
     /*-------------------------------------------
       TineMCE JS
     --------------------------------------------*/
@@ -536,7 +536,7 @@ $(document).ready(function() {
     })
 
     /*-------------------------------------
-      PRICING CONTROL 
+      PRICING CONTROL
     -------------------------------------*/
 
     $('.switch-wrap').on('click', function() {
@@ -552,7 +552,7 @@ $(document).ready(function() {
     -----------------------------------*/
     $(".newsletter-form").ajaxChimp({
       callback: mailchimpResponse,
-      url: "http://codepassenger.us10.list-manage.com/subscribe/post?u=6b2e008d85f125cf2eb2b40e9&id=6083876991" // Replace your mailchimp post url inside double quote "".  
+      url: "http://codepassenger.us10.list-manage.com/subscribe/post?u=6b2e008d85f125cf2eb2b40e9&id=6083876991" // Replace your mailchimp post url inside double quote "".
     });
 
     function mailchimpResponse(resp) {
