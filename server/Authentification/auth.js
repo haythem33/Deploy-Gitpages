@@ -1,7 +1,7 @@
 const express = require('express');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
-const bcrypt = require('node-bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const app = express();
 const router = require('express').Router();
 const port = process.env.port || 4000;
@@ -17,13 +17,16 @@ var CompanyModel = mongoose.model('company', Company);
 // Enregistrement nouveau consultant //
 router.post('/register/consultant', async (req, res) => {
   var consultant = new ConsultantModel();
-  consultant.firstname = req.body.firstnameValue;
-  consultant.lastname = req.body.lastnameValue;
-  resultRegister = await ConsultantModel.findOne({email: req.body.email});
+  consultant.consultantfirstname = req.body.consultantfirstname;
+  consultant.consultantlastname = req.body.consultantlastname;
+  console.log(consultant.consultantfirstname);
+  console.log(consultant.consultantlastname);
+  resultRegister = await ConsultantModel.findOne({email: req.body.consultantemail});
   if (!resultRegister) {
-    consultant.email = req.body.emailValue;
-    req.body.password = bcrypt.hashSync(req.body.passwordValue, 10);
-    consultant.password = req.body.password;
+    consultant.consultantemail = req.body.consultantemailValue;
+    req.body.consultantpassword = bcrypt.hashSync(req.body.consultantpasswordValue);
+    consultant.consultantpassword = req.body.consultantpassword;
+    consultant.consultantstatu = req.body.consultantstatu;
     consultant.save((err, doc) => {
       if (!err) {
         res.send({message: "a new consultant is successfully added", status: 200});
@@ -37,12 +40,17 @@ router.post('/register/consultant', async (req, res) => {
 // Enregistrement nouvelle société //
 router.post('/register/company', async (req, res) => {
   var company = new CompanyModel();
-  company.companyname = req.body.companynameValue;
-  resultRegister = await CompanyModel.findOne({email: req.body.email});
+  company.companyname = req.body.companyname;
+  resultRegister = await CompanyModel.findOne({email: req.body.companyemail});
+  console.log(req.body.companyemail);
   if (!resultRegister) {
-    company.email = req.body.emailValue;
-    req.body.password = bcrypt.hashSync(req.body.passwordValue);
-    company.password = req.body.password;
+    company.companyemail = req.body.companyemail;
+    req.body.companypassword = bcrypt.hashSync(req.body.companypassword);
+    console.log(req.body.companypassword);
+    company.companypassword = req.body.companypassword;
+    company.companystatu = req.body.companystatu;
+    console.log(company.companyemail);
+    console.log(company.companyname);
     company.save((err, doc) => {
       if (!err) {
         res.send({message: "a new conpany is successfully added", status: 200});
@@ -56,9 +64,6 @@ router.post('/register/company', async (req, res) => {
 
 
 
-router.listen(port, function (err, response) {
-  console.log('started at port number : ', port);
-});
 
 module.exports = router;
 

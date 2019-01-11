@@ -4,13 +4,16 @@ var CompanySchema = mongoose.Schema({
   companyname : {
     type: String,
   },
-  email : {
+  companyemail : {
     type: String,
     unique: true
   },
-  password : {
+  companypassword : {
     type: String,
   },
+  companystatu : {
+    type: String,
+   }
 })
 
 module.exports= CompanySchema;
