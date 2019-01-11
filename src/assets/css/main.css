@@ -152,11 +152,11 @@ a:focus {
 }
 
 .primary-color {
-  color:whitesmoke;
+  color: #246df8;
 }
 
 .primary-bg {
-  background: whitesmoke;
+  background: #246df8;
 }
 
 .white-text {
@@ -188,7 +188,7 @@ a:focus {
 }
 
 .padding-bottom-90 {
-  padding-bottom: 90px;
+  padding-bottom: 59px;
 }
 
 .padding-top-100 {
@@ -5470,7 +5470,8 @@ header .absolute-nav {
     font-size: 1.9rem;
     padding: 0;
     cursor: pointer;
-}
+
+  }
 .cp-nav .navbar-collapse .navbar-nav.account-nav .login-popup button:hover{
 color: #007bff;
 }
@@ -6409,7 +6410,7 @@ color: #007bff;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
-  color: #246df8;
+  color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 1.4rem;
@@ -6982,6 +6983,7 @@ color: #007bff;
   padding: 0;
   margin: 0;
   list-style: none;
+
 }
 
 .footer-widget.footer-shortcut-link ul li + li {
@@ -7033,11 +7035,10 @@ color: #007bff;
 }
 
 .footer-widget.footer-newsletter .newsletter-form .form-group .form-control:focus {
-  border-bottom-color: white;
+  border-bottom-color: #ffffff54;
 }
 
-.footer-widget.footer-newsletter .newsletter-form .button {
-  background: #e5e8eceb;
+.foound: #246df8;
   border-color: #246df8;
 }
 
