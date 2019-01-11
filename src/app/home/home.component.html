@@ -17,12 +17,13 @@
       <ul class="navbar-nav ml-auto account-nav">
 
         <li class="menu-item login-popup"><button title="Title" type="button" data-toggle="modal" data-target="#exampleModalLong">Login</button></li>
-        <li class="menu-item login-popup"><button title="Title" type="button" data-toggle="modal" data-target="#exampleModalLong2">Register</button></li>
+        <li class="menu-item login-popup"><button title="Title" type="button" data-toggle="modal" data-target="#exampleModalLong5">Register</button></li>
       </ul>
 
     </div>
   </nav>
   <!-- Modal -->
+  <!--LoginModal-->
   <div class="account-entry">
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -34,7 +35,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="#">
+            <div>
               <div class="form-group">
                 <input type="email" placeholder="Email Address" class="form-control">
               </div>
@@ -51,7 +52,7 @@
                 <a href="#">Forget Password?</a>
               </div>
               <button class="button primary-bg btn-block">Login</button>
-            </form>
+            </div>
             <div class="shortcut-login">
               <span>Or connect with</span>
               <div class="buttons">
@@ -64,7 +65,31 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-hidden="true">
+    <!--End Of Login Modal-->
+    <!--Chose Modal-->
+    <div class="modal fade" id="exampleModalLong5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i data-feather="edit"></i>Registration</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="account-type">
+
+                <a  data-dismiss="modal" data-toggle="modal" href="#exampleModalLong2" >Consultant</a>
+                <a data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong4" >Company</a>
+
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+    <!--End Of chose Modal-->
+    <!--Modal Registration Consultant-->
+    <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLong2" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -75,18 +100,27 @@
           </div>
           <div class="modal-body">
             <div class="account-type">
-              <a href="#" class="candidate-acc active"><i data-feather="user"></i>Consultant</a>
-              <a href="#" class="employer-acc"><i data-feather="briefcase"></i>Company</a>
+
+              <a class="candidate-acc active ">Consultant</a>
+
             </div>
-            <form action="#">
+            <form [formGroup]="consultant">
               <div class="form-group">
-                <input type="text" placeholder="Username" class="form-control">
+                <input type="text" maxlength="19" minlength="3"
+                formControlName="username" placeholder="Username"
+                 [ngClass]="{ 'is-invalid': consultant.get('username').touched && consultant.get('username').invalid}"
+                  class="form-control">
+                <div class="invalid-feedback">Minimum 3 caracter</div>
               </div>
               <div class="form-group">
-                <input type="email" placeholder="Email Address" class="form-control">
+                <input type="email"  formControlName="email" placeholder="Email Address" class="form-control"
+                 [ngClass]="{ 'is-invalid': consultant.get('email').touched && consultant.get('email').invalid}">
+                 <div class="invalid-feedback">Invalid mail</div>
               </div>
               <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control">
+                <input type="password" minlength="3" maxlength="30" formControlName="password" placeholder="Password" class="form-control"
+                 [ngClass]="{ 'is-invalid': consultant.get('password').touched && consultant.get('password').invalid}">
+                 <div class="invalid-feedback">The Password must have a minimum of 4 caracter</div>
               </div>
               <div class="more-option terms">
                 <div class="form-check">
@@ -96,8 +130,10 @@
                   </label>
                 </div>
               </div>
-              <button class="button primary-bg btn-block">Register</button>
+              <button  class="button primary-bg btn-block">Register</button>
             </form>
+
+
             <div class="shortcut-login">
               <span>Or connect with</span>
               <div class="buttons">
@@ -110,7 +146,60 @@
         </div>
       </div>
     </div>
+  <!--End Of ModalRegister Consultant-->
+  <div class="modal fade" id="exampleModalLong4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i data-feather="edit"></i>Registration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="account-type">
+              <a class="candidate-acc active ">Company</a>
+          </div>
+          <form [formGroup]="company">
+            <div class="form-group">
+              <input formControlName="companyname" placeholder="Company Name" class="form-control"
+              type="text" maxlength="19" minlength="3" [ngClass]="{ 'is-invalid': company.get('companyname').touched && company.get('companyname').invalid}">
+               <div class="invalid-feedback">Must have a minimum of 3 caracter</div>
+            </div>
+            <div class="form-group">
+              <input type="email" formControlName="companyemail" placeholder="Email Address" class="form-control"
+              [ngClass]="{ 'is-invalid': company.get('companyemail').touched && company.get('companyemail').invalid}">
+              <div class="invalid-feedback">Invalid email</div>
+            </div>
+            <div class="form-group">
+              <input formControlName="companypassword" type="password" placeholder="Password" class="form-control"
+               maxlength="30" minlength="3"
+               [ngClass]="{ 'is-invalid': company.get('companypassword').touched && company.get('companypassword').invalid}">
+              <div class="invalid-feedback">The Password must have a minimum of 4 caracter</div>
+            </div>
+            <div class="more-option terms">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                <label class="form-check-label" for="defaultCheck2">
+                  I accept the <a href="#">terms & conditions</a>
+                </label>
+              </div>
+            </div>
+            <button class="button primary-bg btn-block">Register</button>
+          </form>
+          <div class="shortcut-login">
+            <span>Or connect with</span>
+            <div class="buttons">
+              <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
+              <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
+            </div>
+            <p>Already have an account? <a href="#">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 </header>
 <!-- Header End -->
 
@@ -264,61 +353,14 @@
             </div>
             <span>Are You</span>
             <h3>Company?</h3>
-            <a href="#" data-toggle="modal" data-target="#exampleModalLong3">Register Now <i class="fas fa-arrow-right"></i></a>
+            <a href="#" data-toggle="modal" data-target="#exampleModalLong4">Register Now <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
     </div>
   </div>
   <!--Modal-->
-  <div class="account-entry">
-      <div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title"><i data-feather="edit"></i>Registration</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="account-type">
-                <a href="#" class="candidate-acc"><i data-feather="user"></i>Cansultant</a>
-                <a href="#" class="employer-acc active"><i data-feather="briefcase"></i>Company</a>
-              </div>
-              <form action="#">
-                <div class="form-group">
-                  <input type="text" placeholder="Username" class="form-control">
-                </div>
-                <div class="form-group">
-                  <input type="email" placeholder="Email Address" class="form-control">
-                </div>
-                <div class="form-group">
-                  <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <div class="more-option terms">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                    <label class="form-check-label" for="defaultCheck3">
-                      I accept the <a href="#">terms & conditions</a>
-                    </label>
-                  </div>
-                </div>
-                <button class="button primary-bg btn-block">Register</button>
-              </form>
-              <div class="shortcut-login">
-                <span>Or connect with</span>
-                <div class="buttons">
-                  <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
-                  <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
-                </div>
-                <p>Already have an account? <a href="#">Login</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
 <!-- Testimonial -->
 <div class="section-padding">
   <div class="container">
@@ -499,14 +541,14 @@
           <div class="footer-widget footer-newsletter">
             <h4>Newsletter</h4>
             <p>Get e-mail updates about our latest news and Special offers.</p>
-            <form action="#" class="newsletter-form form-inline">
+            <div class="newsletter-form form-inline">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Email address...">
               </div>
               <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
               <p class="newsletter-error">0 - Please enter a value</p>
               <p class="newsletter-success">Thank you for subscribing!</p>
-            </form>
+            </div>
           </div>
         </div>
       </div>
