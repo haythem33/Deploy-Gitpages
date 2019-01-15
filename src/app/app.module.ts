@@ -8,11 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Control } from './control';
+import { ProfilecompanyComponent } from './profilecompany/profilecompany.component';
+import { ProfilconsultantComponent } from './profilconsultant/profilconsultant.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ProfilecompanyComponent,
+    ProfilconsultantComponent
   ],
   imports: [
     BrowserModule,

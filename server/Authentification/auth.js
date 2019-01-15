@@ -37,6 +37,19 @@ router.post('/register/consultant', async (req, res) => {
     })
   }
 });
+router.post('/login/company', async (req, res) => {
+  resultLogin = await CompanyModel.findOne({email: req.body.companyemail });
+  console.log(req.body.companypassword);
+  if (!resultLogin) {
+    res.send({ message: 'user not found' });
+  }
+  if (!bcrypt.compareSync(req.body.companypassword, resultlogin.password)) {
+    res.send({ message: 'bad password' })
+  }
+  else { res.send({ message: 'ok', Token : jwt.sign({data:resultLogin},'my_secret')})
+  jwt.verify() }
+
+});
 // Enregistrement nouvelle société //
 router.post('/register/company', async (req, res) => {
   var company = new CompanyModel();
