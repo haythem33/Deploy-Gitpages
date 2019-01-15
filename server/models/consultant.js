@@ -1,22 +1,20 @@
 const mongoose = require ('mongoose');
 
 var ConsultantSchema = mongoose.Schema({
-  consultantfirstname : {
-    type: String,
+  code : {
+    type : String
   },
-  consultantlastname : {
-    type: String,
+  username: {
+    type: String
   },
-  consultantemail : {
-    type: String,
-    unique: true
+  email: {
+    type: String
   },
-  consultantpassword : {
-    type: String,
+  password: {
+    type: String
   },
-  consultantstatu : {
-    type: String,
-   }
+  statut: {
+    type: String
+  }
 })
-
-module.exports= ConsultantSchema;
+module.exports = ConsultantSchema;
