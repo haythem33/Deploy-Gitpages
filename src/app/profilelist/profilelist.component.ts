@@ -11,7 +11,7 @@ export class ProfilelistComponent implements OnInit {
 token;
 accountname;
 accountemail;
-  constructor(public listService: ListService) { }
+  constructor(public listService: ListService, public router: Router) { }
 
   ngOnInit() {
     this.token = this.listService.decodetoken();
@@ -25,6 +25,7 @@ accountemail;
   }
   logOut() {
     localStorage.clear();
+    this.router.navigateByUrl('/home');
   }
 
 }

@@ -15,6 +15,6 @@ var ConsultantSchema = mongoose.Schema({
   },
   statut: {
     type: String
-  },
+  }
 })
 module.exports = ConsultantSchema;

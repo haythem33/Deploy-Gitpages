@@ -63,14 +63,6 @@ confirmLogin() {
        alert('Success');
      }
   });
-  // tslint:disable-next-line:max-line-length
- /* if (this.consultantResponse === 'user not found' && this.companyResponse === 'user not found' || this.consultantResponse === 'bad password' && this.companyResponse === 'bad password' ) {
-    alert('Error');
-  } else {
-    if (this.consultantResponse === 'not active' || this.companyResponse === 'not active') {
-      alert('you have to confirm your account');
-    }
-  }*/
   }
 
 }
