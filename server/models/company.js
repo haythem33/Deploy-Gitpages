@@ -1,16 +1,22 @@
 const mongoose = require ('mongoose');
 
 var CompanySchema = mongoose.Schema({
+  code : {
+    type : String,
+  },
   companyname : {
     type: String,
   },
-  email : {
+  companyemail : {
     type: String,
     unique: true
   },
-  password : {
+  companypassword : {
     type: String,
   },
+  companystatut: {
+    type: String
+  }
 })
 
 module.exports= CompanySchema;

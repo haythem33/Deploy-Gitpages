@@ -35,12 +35,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <div>
+            <form [formGroup]="loginForm">
               <div class="form-group">
-                <input type="email" placeholder="Email Address" class="form-control">
+                <input type="email" formControlName="loginEmail" placeholder="Email Address" class="form-control">
               </div>
               <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control">
+                <input type="password" formControlName="loginPassword" placeholder="Password" class="form-control">
               </div>
               <div class="more-option">
                 <div class="form-check">
@@ -51,8 +51,8 @@
                 </div>
                 <a href="#">Forget Password?</a>
               </div>
-              <button class="button primary-bg btn-block">Login</button>
-            </div>
+              <button (click)="confirmLogin()" class="button primary-bg btn-block">Login</button>
+            </form>
             <div class="shortcut-login">
               <span>Or connect with</span>
               <div class="buttons">
@@ -130,7 +130,7 @@
                   </label>
                 </div>
               </div>
-              <button  class="button primary-bg btn-block">Register</button>
+              <button (click)="registerApiConsultant()" class="button primary-bg btn-block">Register</button>
             </form>
 
 
@@ -185,7 +185,7 @@
                 </label>
               </div>
             </div>
-            <button class="button primary-bg btn-block">Register</button>
+            <button (click)="registerApiCompany()" class="button primary-bg btn-block">Register</button>
           </form>
           <div class="shortcut-login">
             <span>Or connect with</span>

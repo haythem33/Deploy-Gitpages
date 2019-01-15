@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 var cors = require('cors');
-
+var http = require('http')
 var mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const port = process.env.port || 4000;
@@ -33,3 +33,7 @@ mongoose.connect('mongodb://localhost:27017/expert', {
 app.listen(port, function (err, response) {
   console.log('started at port number : ', port);
 });
+http.createServer(function(request, response) {
+  response.writeHeader(200, {"Content-Type": "text/html"});
+  console.log("aaaaa");
+}).listen(8000);
