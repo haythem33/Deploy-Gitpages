@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 const auth = require('./Authentification/auth');
 app.use('/auth',auth);
 
+const filter = require('./filter/filterconsutlant');
+app.use('/filter',filter);
 
 
 

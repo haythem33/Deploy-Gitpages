@@ -494,6 +494,8 @@ router.post('/register/consultant', async (req, res) => {
      consultant.code = req.body.code
      req.body.statut = "not active";
      consultant.statut = req.body.statut;
+     consultant.profiltitle = req.body.profiltitle;
+     consultant.category = req.body.category;
     consultant.username = req.body.username;
     consultant.email = req.body.email;
     req.body.password = bcrypt.hashSync(req.body.password);
@@ -566,6 +568,7 @@ res.redirect('http://localhost:4200/home');
 // Activation compte Consultant
 router.get('/consultant/confirmation/:code', async (req,res)=> {
   const setConsultant = await ConsultantModel.findOneAndUpdate(req.params.code, {$set: {statut : "active"}});
+
   res.redirect('http://localhost:4200/home');
 });
 // login Consultant && company

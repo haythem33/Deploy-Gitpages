@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
 registerApiCompany() {
   console.log(this.company.value);
   this.auth.registerApiCompany(this.company.value).subscribe(res => {
-    if (res['message'] === 'a new consultant is successfully added') {
+    if (res['message'] === 'a new company is successfully added') {
       alert(`we have send You a confirmation mail to ${this.company.value.companyemail}`);
     } else {
       alert(`${this.company.value.companyemail} is aleardy used choose another email`);
