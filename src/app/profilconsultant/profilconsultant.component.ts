@@ -32,8 +32,16 @@ DispoChoice =  [
   {name: 'PartTime'},
   {name: 'FullTime'},
 ];
+categoriesValue = [
+  { category: 'IT' },
+  { category: 'Accounting / Finance' },
+  { category: 'Marketing & Sales' },
+  { category: 'Telecommunication' },
+];
 inputValue;
+inputValue2;
 conditionMaterial = 0;
+conditionMaterial2 = 0;
 citys = [
   {name: 'Ariana'},
   {name: 'Béja'},
@@ -89,6 +97,7 @@ citys = [
     this.profileApi.getprofileApi(this.token['data'].code).subscribe(res => {
       this.exp = res['experience'];
       this.inputValue = res['Disponibilité'];
+      this.inputValue2 = res['Categorie'];
       if (res['aboutme'].length > 0) {
         this.aboutMelenght = 1;
         this.afficherAboutMe = res['aboutme'];
@@ -150,6 +159,15 @@ citys = [
   }
   editDispo() {
     this.conditionMaterial = 1;
+  }
+  addCategorie(f) {
+    const obj = {dispo: f};
+    this.profileApi.setCategorie(this.token['data'].code, obj).subscribe(res => {
+    this.inputValue2 = res['Categorie'];
+    });
+  }
+  editCategorie() {
+    this.conditionMaterial2 = 1;
   }
 }
 

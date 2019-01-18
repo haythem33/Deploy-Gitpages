@@ -50,7 +50,7 @@ export class ProfilelistComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.listconsultant);
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  FilterConsultant(f) {
+  /*FilterConsultant(f) {
     this.CategoryFil = this.dataSource.filterPredicate(items => f === items.category);
     if (this.CategoryFil.length > 0) {
       this.listconsultant = this.CategoryFil;
@@ -60,7 +60,7 @@ export class ProfilelistComponent implements OnInit {
     }
     // for (this.i = 0; this.i < this.CategoryFil.length; this.i++)
 
-  }
+  }*/
 
   removeFakePath(f) {
 

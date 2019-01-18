@@ -337,7 +337,7 @@
 
                     <label style="margin-top:20px;margin-bottom: 20px;" class="col-md-6 col-form-label">Description:</label>
                     <div style="margin-top:20px;margin-bottom: 20px;" class="col-md-6">
-                      <h6>{{expp.Description}}</h6>
+                      <h6 >{{expp.Description}}</h6>
                     </div>
                   </div>
                 </div>
@@ -360,19 +360,21 @@
                   <button  (click)="editDispo()" class="add-new-field col-md-2">Edit</button>
                 </div>
 
-                <div id="qualification" class="row">
-                  <label class="col-md-3 col-form-label"></label>
-                  <div class="col-md-9">
-                    <textarea id="tiny" class="tinymce-editor-2" placeholder="Description text here"></textarea>
-                  </div>
-                </div>
-                <div id="portfolio" class="row">
-                  <label class="col-md-3 col-form-label"></label>
-                  <div class="col-md-9">
-                    <div class="form-group">
+                <div class="row">
+                  <label class="col-md-2 col-form-label">Categorie : </label>
+                  <div *ngIf="inputValue2?.length > 0" class="col-md-4">
+                    {{inputValue2}}
 
-                    </div>
                   </div>
+                  <div *ngIf="conditionMaterial2 > 0" class="col-md-4">
+                      <mat-select placeholder="Choose" (valueChange)="addCategorie($event)">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let choice of categoriesValue" [value]="choice.category">
+                          {{choice.category}}
+                        </mat-option>
+                      </mat-select>
+                  </div>
+                  <button  (click)="editCategorie()" class="add-new-field col-md-2">Edit</button>
                 </div>
                 <div class="form-group row">
                   <label class="col-md-3 col-form-label"></label>
