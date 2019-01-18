@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
+reloadpage: any;
 
   constructor(public http: HttpClient) { }
   registerApiCompany(form) {

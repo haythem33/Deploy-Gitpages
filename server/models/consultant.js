@@ -15,6 +15,21 @@ var ConsultantSchema = mongoose.Schema({
   },
   statut: {
     type: String
-  }
+  },
+  aboutme: [{
+    name: String,
+    lastname: String,
+    telephone: Number,
+    photo: String,
+    adresse: String,
+  }],
+  experience: [{
+   Duration: Number,
+   CompanyName: String,
+   Description: String,
+}],
+Disponibilité: {
+  type: String,
+}
 })
 module.exports = ConsultantSchema;
