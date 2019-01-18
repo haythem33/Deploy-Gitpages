@@ -13,6 +13,8 @@ import { ProfilconsultantComponent } from './profilconsultant/profilconsultant.c
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

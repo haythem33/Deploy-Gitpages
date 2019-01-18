@@ -51,8 +51,7 @@ export class ProfilelistComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   FilterConsultant(f) {
-    this.CategoryFil = this.listconsultant;
-    this.CategoryFil = this.listconsultant.filter(items => f === items.category);
+    this.CategoryFil = this.dataSource.filterPredicate(items => f === items.category);
     if (this.CategoryFil.length > 0) {
       this.listconsultant = this.CategoryFil;
       console.log(this.listconsultant);

@@ -16,36 +16,20 @@ var ConsultantSchema = mongoose.Schema({
   profiltitle: {
     type: String
   },
-  category: {
-    type: String
-  },
-  Aboutme :[{
-    Name: String,
-    LastName: String,
-    Telephone: String,
-    City: String,
-    Photo: String
+  aboutme: [{
+    name: String,
+    lastname: String,
+    telephone: Number,
+    photo: String,
+    adresse: String,
   }],
-  Experience :[{
-    Duration: Number,
-    CompanyName: String,
-    Description: String,
-  }],
-  Skills: [{
-
-  }],
-  Disponibility : {
-    type: String,
-  },
-  Price : [{
-    perday: String,
-    pertendays: String,
-    permonth: String,
-  }],
-  Portfolio :[{
-    PortfolioTitle: String,
-    PortfolioPhoto: String,
-    PortfolioLink: String,
-  }],
+  experience: [{
+   Duration: Number,
+   CompanyName: String,
+   Description: String,
+}],
+Disponibilité: {
+  type: String,
+}
 })
 module.exports = ConsultantSchema;

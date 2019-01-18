@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Route , Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit {
   loginForm: FormGroup;
   companyResponse: any;
   consultantResponse: any;
-  constructor(public auth: AuthService) {
+  modal;
+  constructor(public auth: AuthService, public router: Router) {
     this.consultant = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.minLength(2) ,  Validators.maxLength(19)]),
       email: new FormControl ('', [Validators.required, Validators.email]),
@@ -60,7 +62,7 @@ confirmLogin() {
        console.log(res);
      } else {
        localStorage.setItem('token', res['Token']);
-       alert('Success');
+       window.location.replace('http://localhost:4200/profilconsultant');
      }
   });
   }
