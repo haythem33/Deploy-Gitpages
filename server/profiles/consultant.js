@@ -57,12 +57,21 @@ router.post ('/dispo/:code', async (req,res)=> {
   res.send(getresultat);
 
 });
+// post Categorie
 router.post ('/Categorie/:code', async (req,res)=> {
   let code = {code : req.params.code};
   const resultat = await ConsultantModel.findOneAndUpdate(code, {$set: {Categorie: req.body.dispo}});
   const getresultat = await ConsultantModel.findOne({code: req.params.code});
   res.send(getresultat);
 
+});
+// post skills
+router.post('/skills/:code', async (req,res) => {
+let code = {code: req.params.code};
+console.log(req.body);
+const resultat = await ConsultantModel.findOneAndUpdate(code, {$set : {skills : req.body}});
+const getresultat = await ConsultantModel.findOne({code: req.params.code});
+res.send(getresultat);
 });
 
 module.exports = router

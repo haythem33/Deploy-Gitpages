@@ -32,4 +32,7 @@ setDispo(code, form) {
 setCategorie(code, form) {
   return this.http.post(`http://localhost:4000/profileConsultant/Categorie/${code}`, form);
 }
+setSkills(code, form) {
+  return this.http.post(`http://localhost:4000/profileConsultant/skills/${code}`, form);
+}
 }

@@ -6,6 +6,8 @@ import { FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { CustomValidation } from '../custom-validation';
 import { Control } from '../control';
 import {ProfileApiService } from '../profile-api.service';
+import {MatChipInputEvent} from '@angular/material';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-profilconsultant',
@@ -66,7 +68,13 @@ citys = [
   {name: 'Tunis'},
   {name: 'Zaghouan'},
 ];
-
+visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  skills = [
+  ];
 
   constructor(public auth: AuthService, public listService: ListService, public router: Router, public profileApi: ProfileApiService) {
     this.aboutMe = new FormGroup ({
@@ -98,6 +106,7 @@ citys = [
       this.exp = res['experience'];
       this.inputValue = res['Disponibilité'];
       this.inputValue2 = res['Categorie'];
+      this.skills = res['skills'];
       if (res['aboutme'].length > 0) {
         this.aboutMelenght = 1;
         this.afficherAboutMe = res['aboutme'];
@@ -169,5 +178,36 @@ citys = [
   editCategorie() {
     this.conditionMaterial2 = 1;
   }
+  deleteEdit() {
+    this.conditionMaterial2 = 0;
+  }
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.skills.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(skill): void {
+    const index = this.skills.indexOf(skill);
+
+    if (index >= 0) {
+      this.skills.splice(index, 1);
+    }
+  }
+
+ pushSkill(f) {
+    this.profileApi.setSkills(this.token['data'].code, f).subscribe(res => {
+      this.skills = res['skills'];
+    });
+}
 }
 

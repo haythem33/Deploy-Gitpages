@@ -36,6 +36,9 @@ Categorie: {
 },
 statut: {
   type: String,
-}
+},
+skills : [{
+  name: String,
+}],
 })
 module.exports = ConsultantSchema;
