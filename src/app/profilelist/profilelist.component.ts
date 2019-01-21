@@ -29,7 +29,7 @@ export class ProfilelistComponent implements OnInit {
 
   constructor(public listService: ListService, public router: Router) { }
 
-  async ngOnInit() {
+   ngOnInit() {
 
     this.token = this.listService.decodetoken();
     if (this.token['data'].companyname) {
@@ -41,7 +41,7 @@ export class ProfilelistComponent implements OnInit {
     }
     this.listService.getConsultant().subscribe(res => {
       this.listconsultant = res;
-      console.log(this.listconsultant);
+  //    console.log(this.listconsultant);
       this.dataSource = new MatTableDataSource(this.listconsultant);
     });
 
@@ -61,7 +61,6 @@ export class ProfilelistComponent implements OnInit {
     // for (this.i = 0; this.i < this.CategoryFil.length; this.i++)
 
   }
-
   removeFakePath(f) {
 
     this.fakePath = f.slice(12, f.length);

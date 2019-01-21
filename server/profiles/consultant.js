@@ -56,6 +56,13 @@ router.post ('/dispo/:code', async (req,res)=> {
   const getresultat = await ConsultantModel.findOne({code: req.params.code});
   res.send(getresultat);
 
-})
+});
+router.post ('/Categorie/:code', async (req,res)=> {
+  let code = {code : req.params.code};
+  const resultat = await ConsultantModel.findOneAndUpdate(code, {$set: {Categorie: req.body.dispo}});
+  const getresultat = await ConsultantModel.findOne({code: req.params.code});
+  res.send(getresultat);
+
+});
 
 module.exports = router

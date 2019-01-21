@@ -27,7 +27,9 @@ updateApiExp(code, index, form) {
 
 }
 setDispo(code, form) {
-  console.log('test', form);
   return this.http.post(`http://localhost:4000/profileConsultant/dispo/${code}`, form);
+}
+setCategorie(code, form) {
+  return this.http.post(`http://localhost:4000/profileConsultant/Categorie/${code}`, form);
 }
 }

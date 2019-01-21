@@ -135,7 +135,7 @@
                 <span>Showing 1–12 of 28 Jobs</span>
               </div>
             </div>
-            <div class="candidate-filter-result">
+            <div  *ngIf="dataSource"  class="candidate-filter-result">
               <div class="candidate" *ngFor="let consultant of dataSource.filteredData ">
                 <div class="thumb">
                   <a href="#">
@@ -143,11 +143,11 @@
                   </a>
                 </div>
                 <div class="body">
-                  <div class="content" *ngFor="let personalInfo of consultant.Aboutme">
+                  <div class="content" *ngFor="let personalInfo of consultant.aboutme">
                     <h4><a href="candidate-details.html">{{personalInfo.name}} {{personalInfo.lastname}}</a></h4>
                     <div class="info">
                       <span class="work-post"><a href="#"><i data-feather="check-square"></i>{{consultant.profiltitle}}</a></span>
-                      <span class="location"><a href="#"><i data-feather="map-pin"></i>{{personalInfo.City}}</a></span>
+                      <span class="location"><a href="#"><i data-feather="map-pin"></i>{{personalInfo.adresse}}</a></span>
                     </div>
                   </div>
                   <div class="button-area">

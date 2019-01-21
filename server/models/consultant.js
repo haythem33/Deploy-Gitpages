@@ -30,6 +30,12 @@ var ConsultantSchema = mongoose.Schema({
 }],
 Disponibilité: {
   type: String,
+},
+Categorie: {
+  type: String,
+},
+statut: {
+  type: String,
 }
 })
 module.exports = ConsultantSchema;
