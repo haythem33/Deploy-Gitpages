@@ -19,8 +19,8 @@ const routes: Routes = [
     component: ProfilconsultantComponent
   },
   {
-  path: 'profilelist',
-  component: ProfilelistComponent
+    path: 'profilelist',
+    component: ProfilelistComponent
   }
 ];
 

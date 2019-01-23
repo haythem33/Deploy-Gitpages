@@ -100,11 +100,11 @@
     <div class="row">
       <div class="col-md-6">
         <div class="breadcrumb-area">
-          <h1>Add Resume</h1>
+          <h1>My Profile</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Add Resume</li>
+              <li class="breadcrumb-item active" aria-current="page">Profile</li>
             </ol>
           </nav>
         </div>
@@ -113,8 +113,7 @@
         <div class="breadcrumb-form">
           <!--form-->
           <div action="#">
-            <input type="text" placeholder="Enter Keywords">
-            <button><i data-feather="search"></i></button>
+
             <!--form-->
           </div>
         </div>
@@ -267,9 +266,9 @@
               <div class="basic-info-input">
                 <h4><i data-feather="plus-circle"></i>Profile</h4>
                 <div id="about" class="row">
-                  <label class="col-md-6 col-form-label">About Me</label>
-                  <div class="col-md-6" id="buttonModal">
-                    <button data-toggle="modal" data-target="#aboutMe" class="add-new-field">+ add personel information</button>
+                  <label class="col-md-9 col-form-label">About Me</label>
+                  <div class="col-md-3" id="buttonModal">
+                    <button data-toggle="modal" data-target="#aboutMe" class="add-new-field">+ add</button>
                   </div>
                 </div>
                 <!--NgFor-->
@@ -295,7 +294,7 @@
                     <div id="experience" class="row">
                       <label class="col-md-6 col-form-label">Tel :</label>
                       <div>
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                           <h6>{{about.telephone}}</h6>
                         </div>
                       </div>
@@ -304,10 +303,10 @@
                   <!--End Of NgFor aboutme-->
                 </div>
                 <div style="margin-top:20px;" class="row">
-                  <label style="font-size:15px" class="col-md-6 col-form-label">Experience</label>
-                  <div class="col-md-6">
+                  <label style="font-size:15px" class="col-md-9 col-form-label">Experience</label>
+                  <div class="col-md-3">
                     <div id="expButton" class="form-group">
-                      <button data-toggle="modal" data-target="#experience" class="add-new-field">+ add Experience</button>
+                      <button data-toggle="modal" data-target="#experience" class="add-new-field">+ add </button>
                     </div>
                   </div>
                 </div>
@@ -349,7 +348,8 @@
                     <h6>{{inputValue}} </h6>
 
                   </div>
-                  <div *ngIf="conditionMaterial > 0" class="col-md-4">
+                  <div class="col-md-3">
+                  <div *ngIf="conditionMaterial === 1">
                       <mat-select placeholder="Choose" (valueChange)="addDispo($event)">
                         <mat-option>--</mat-option>
                         <mat-option *ngFor="let choice of DispoChoice" [value]="choice.name">
@@ -357,7 +357,10 @@
                         </mat-option>
                       </mat-select>
                   </div>
-                  <button  (click)="editDispo()" class="add-new-field col-md-2">Edit</button>
+                </div>
+                  <div class="col-md-2">
+                  <button  (click)="editDispo()" class="add-new-field ">Edit</button>
+                </div>
                 </div>
 
                 <div style="margin-top: 20px;" class="row">
@@ -366,7 +369,8 @@
                     <h6>{{inputValue2}}</h6>
 
                   </div>
-                  <div id="deleteEdit" *ngIf="conditionMaterial2 > 0" class="col-md-4">
+                  <div class="col-md-3">
+                  <div id="deleteEdit" *ngIf="conditionMaterial2 > 0">
                       <mat-select placeholder="Choose" (valueChange)="addCategorie($event)">
                         <mat-option>--</mat-option>
                         <mat-option *ngFor="let choice of categoriesValue" [value]="choice.category">
@@ -374,7 +378,10 @@
                         </mat-option>
                       </mat-select>
                   </div>
-                  <button  (click)="editCategorie()" class="add-new-field col-md-2">Edit</button>
+                </div>
+                  <div class="col-md-2">
+                  <button  (click)="editCategorie()" class="add-new-field ">Edit</button>
+                </div>
                 </div>
                 <div style="margin-top:20px;" class="form-group row">
                   <label style="color:#246df8;" class="col-md-2 col-form-label">Skills : </label>
@@ -396,6 +403,28 @@
 
                   </div>
                 </div>
+                <div class="form-group row">
+
+                  <label class="col-md-2 col-form-label labelSalary">Salary : </label>
+
+                    <div [formGroup]= "Salary">
+                  <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0].day}}" matInput placeholder="Per Day" formControlName="day" type="number" class="example-right-align">
+                      <span matPrefix>$&nbsp;</span>
+                  </mat-form-field>
+                  <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0].week}}" matInput placeholder="Per Week" formControlName="week" type="number" class="example-right-align">
+                      <span matPrefix>$&nbsp;</span>
+                  </mat-form-field>
+                  <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0].month}}" matInput placeholder="Per Month" formControlName="month" type="number" class="example-right-align">
+                      <span matPrefix>$&nbsp;</span>
+                  </mat-form-field>
+
+                </div>
+                </div>
+
+
               </div>
               <!--form-->
             </div>

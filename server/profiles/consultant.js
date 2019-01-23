@@ -24,7 +24,6 @@ router.post('/upload', upload.single('file'), function (req, res, next) {
 router.post('/postProfile/:code', async (req,res)=> {
   let aboutMe = req.body;
   let code = {code : req.params.code}
-  console.log(aboutMe);
   const resultat = await ConsultantModel.findOneAndUpdate(code, {$set: {aboutme: aboutMe}});
   const getresultat = await ConsultantModel.findOne({code :req.params.code});
   res.send(getresultat);
@@ -51,7 +50,6 @@ router.put('/exp/update/:code/:index', async (req,res)=> {
 // push disponibilite
 router.post ('/dispo/:code', async (req,res)=> {
   let code = {code : req.params.code};
-  console.log(req.body);
   const resultat = await ConsultantModel.findOneAndUpdate(code, {$set: {Disponibilité: req.body.dispo}});
   const getresultat = await ConsultantModel.findOne({code: req.params.code});
   res.send(getresultat);
@@ -68,10 +66,16 @@ router.post ('/Categorie/:code', async (req,res)=> {
 // post skills
 router.post('/skills/:code', async (req,res) => {
 let code = {code: req.params.code};
-console.log(req.body);
 const resultat = await ConsultantModel.findOneAndUpdate(code, {$set : {skills : req.body}});
 const getresultat = await ConsultantModel.findOne({code: req.params.code});
 res.send(getresultat);
+});
+// post Salary
+router.post('/salary/:code', async (req,res)=> {
+  let code = {code: req.params.code};
+  const resultat = await ConsultantModel.findOneAndUpdate(code, {$set: {Salary: req.body}});
+  const getresultat = await ConsultantModel.findOne({code: req.params.code});
+  res.send(getresultat);
 });
 
 module.exports = router

@@ -16,6 +16,8 @@ app.use('/profileConsultant', profile);
 
 const filter = require('./filter/filterconsutlant');
 app.use('/filter',filter);
+const chatBox = require('./chatBox/message');
+app.use('/chatBox', chatBox );
 
 
 

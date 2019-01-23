@@ -35,4 +35,7 @@ setCategorie(code, form) {
 setSkills(code, form) {
   return this.http.post(`http://localhost:4000/profileConsultant/skills/${code}`, form);
 }
+setSalary(code, form) {
+  return this.http.post(`http://localhost:4000/profileConsultant/salary/${code}`, form);
+}
 }
