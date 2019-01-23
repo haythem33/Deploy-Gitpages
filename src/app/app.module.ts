@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FilterPipeModule } from 'ngx-filter-pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +26,7 @@ import { ProfilelistComponent } from './profilelist/profilelist.component';
   ],
   imports: [
     BrowserModule,
+    FilterPipeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

@@ -67,7 +67,6 @@ citys = [
   {name: 'Zaghouan'},
 ];
 
-
   constructor(public auth: AuthService, public listService: ListService, public router: Router, public profileApi: ProfileApiService) {
     this.aboutMe = new FormGroup ({
       name: new FormControl ('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Control } from '../control';
 import { from } from 'rxjs';
 import { MatTableDataSource } from '@angular/material';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 import { DataSource } from '@angular/cdk/table';
 
 @Component({
@@ -26,8 +27,12 @@ export class ProfilelistComponent implements OnInit {
     { category: 'Marketing & Sales' },
     { category: 'Telecommunication' },
   ];
+  userFilter: any = { categoriesValue: '' };
 
-  constructor(public listService: ListService, public router: Router) { }
+  constructor(public listService: ListService, public router: Router) {
+    this.dataSource = new MatTableDataSource([]);
+
+   }
 
    ngOnInit() {
 
@@ -41,10 +46,8 @@ export class ProfilelistComponent implements OnInit {
     }
     this.listService.getConsultant().subscribe(res => {
       this.listconsultant = res;
-  //    console.log(this.listconsultant);
       this.dataSource = new MatTableDataSource(this.listconsultant);
     });
-
   }
   applyFilter(filterValue: string) {
     this.dataSource = new MatTableDataSource(this.listconsultant);
@@ -61,6 +64,7 @@ export class ProfilelistComponent implements OnInit {
     // for (this.i = 0; this.i < this.CategoryFil.length; this.i++)
 
   }
+    // for (this.i = 0; this.i < this.CategoryFil.length; this.i++)
   removeFakePath(f) {
 
     this.fakePath = f.slice(12, f.length);
