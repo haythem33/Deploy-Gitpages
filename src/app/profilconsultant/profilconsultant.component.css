@@ -13,3 +13,11 @@
   padding: 10px;
   border-radius: 5px;
 }
+
+.example-chip-list {
+  width: 100%;
+}
+.labelSalary {
+  color:#246df8!important;
+  margin-top:15px;
+}

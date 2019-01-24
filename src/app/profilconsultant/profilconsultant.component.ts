@@ -6,6 +6,8 @@ import { FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { CustomValidation } from '../custom-validation';
 import { Control } from '../control';
 import {ProfileApiService } from '../profile-api.service';
+import {MatChipInputEvent} from '@angular/material';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-profilconsultant',
@@ -66,6 +68,15 @@ citys = [
   {name: 'Tunis'},
   {name: 'Zaghouan'},
 ];
+visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  skills = [
+  ];
+  Salary: FormGroup;
+  getSalary: any = [];
 
   constructor(public auth: AuthService, public listService: ListService, public router: Router, public profileApi: ProfileApiService) {
     this.aboutMe = new FormGroup ({
@@ -80,7 +91,11 @@ citys = [
       CompanyName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(14)]),
       Description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]),
         });
-        this.dispo = new FormControl('', [Validators.required]);
+        this.Salary = new FormGroup({
+            day: new FormControl   ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
+            week: new FormControl  ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
+            month: new FormControl ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
+        });
    }
 
   ngOnInit() {
@@ -97,6 +112,8 @@ citys = [
       this.exp = res['experience'];
       this.inputValue = res['Disponibilité'];
       this.inputValue2 = res['Categorie'];
+      this.skills = res['skills'];
+      this.getSalary = res['Salary'];
       if (res['aboutme'].length > 0) {
         this.aboutMelenght = 1;
         this.afficherAboutMe = res['aboutme'];
@@ -115,7 +132,7 @@ citys = [
       console.log(res);
       this.afficherAboutMe = res['aboutme'];
       this.aboutMelenght = 1;
-      this.togglemodal = '<button data-toggle="modal" data-target="#aboutMe" class="add-new-field">Edit</button>';
+      this.togglemodal = '<button data-toggle="modal" data-target="#aboutMe" class="add-new-field float-right">Edit</button>';
          document.getElementById('buttonModal').innerHTML = this.togglemodal;
     });
   }
@@ -154,6 +171,7 @@ citys = [
     const obj = {dispo: f};
      this.profileApi.setDispo(this.token['data'].code, obj).subscribe(res => {
        this.inputValue = res['Disponibilité'];
+       this.conditionMaterial = 0;
      });
   }
   editDispo() {
@@ -163,10 +181,46 @@ citys = [
     const obj = {dispo: f};
     this.profileApi.setCategorie(this.token['data'].code, obj).subscribe(res => {
     this.inputValue2 = res['Categorie'];
+    this.conditionMaterial2 = 0;
     });
   }
   editCategorie() {
     this.conditionMaterial2 = 1;
   }
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.skills.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(skill): void {
+    const index = this.skills.indexOf(skill);
+
+    if (index >= 0) {
+      this.skills.splice(index, 1);
+    }
+  }
+
+ pushSkill(f) {
+    this.profileApi.setSkills(this.token['data'].code, f).subscribe(res => {
+      this.skills = res['skills'];
+    });
+}
+addSalery() {
+  if (this.Salary.value.day > 0 && this.Salary.value.week > 0 && this.Salary.value.month > 0) {
+  this.profileApi.setSalary(this.token['data'].code, this.Salary.value).subscribe(res => {
+    this.getSalary = res['Salary'];
+  });
+  }
+}
 }
 

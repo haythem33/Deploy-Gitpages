@@ -36,6 +36,14 @@ Categorie: {
 },
 statut: {
   type: String,
-}
+},
+skills : [{
+  name: String,
+}],
+Salary: [{
+  day: Number,
+  week: Number,
+  month: Number,
+}]
 })
 module.exports = ConsultantSchema;
