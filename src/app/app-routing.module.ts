@@ -6,6 +6,7 @@ import { ProfilconsultantComponent } from './profilconsultant/profilconsultant.c
 import { ProfilelistComponent } from './profilelist/profilelist.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 
+
 const routes: Routes = [
   {
     path: 'home',
