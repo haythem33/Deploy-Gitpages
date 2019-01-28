@@ -9,14 +9,14 @@ var CompanySchema = mongoose.Schema({
   },
   companyemail : {
     type: String,
-    unique: true
   },
   companypassword : {
     type: String,
   },
   companystatut: {
     type: String
-  }
+  },
+  user : {type: mongoose.SchemaTypes.ObjectId, ref:'user'},
 })
 
 module.exports= CompanySchema;

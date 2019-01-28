@@ -77,5 +77,11 @@ router.post('/salary/:code', async (req,res)=> {
   const getresultat = await ConsultantModel.findOne({code: req.params.code});
   res.send(getresultat);
 });
+// get user consultant
+router.get('/user/:id', async (req,res)=> {
+  const user = await ConsultantModel.find({user : req.params.id}).populate('user').then(result => {
+    res.send(result);
+  })
+})
 
 module.exports = router

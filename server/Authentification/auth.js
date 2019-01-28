@@ -13,12 +13,15 @@ var request = require('request');
 var http = require('http');
 const Window = require('window');
 
+
 //importation des models//
 
 var Consultant = require('./../models/consultant');
 var ConsultantModel = mongoose.model('consultant', Consultant);
 var Company = require('./../models/company');
 var CompanyModel = mongoose.model('company', Company);
+var User = require('./../models/user');
+var UserModel = mongoose.model('user', User);
 // function Sending mail Consultant
 function sendMailConsultant(email, code) {
   var htmlSend = `<!DOCTYPE html>
@@ -489,7 +492,9 @@ router.post('/register/consultant', async (req, res) => {
  const resultRegister = await ConsultantModel.findOne({ email: req.body.email });
  const resultCompany = await CompanyModel.findOne({companyemail: req.body.email});
  if (!resultRegister && !resultCompany) {
-  var consultant = new ConsultantModel();
+   var user = new UserModel();
+
+     var consultant = new ConsultantModel();
      req.body.code = uuidV4();
      consultant.code = req.body.code
      req.body.statut = "not active";
@@ -504,7 +509,12 @@ router.post('/register/consultant', async (req, res) => {
       if (!err) {
         sendMailConsultant(consultant.email, consultant.code);
         res.send({ message: "a new consultant is successfully added", status: 200 });
-
+        user.consul = consultant._id;
+        user.username = consultant.username;
+        user.email = consultant.email;
+        user.save();
+       consultant.user = user._id;
+       consultant.save();
       }
     })
     } else {
@@ -521,6 +531,7 @@ router.post('/register/company', async (req, res) => {
   const resultConsultant = await ConsultantModel.findOne({email: req.body.companyemail})
   if (!resultRegister && !resultConsultant) {
     var company = new CompanyModel();
+    var user = new UserModel();
      req.body.code = uuidV4();
     company.code = req.body.code;
     company.companyname = req.body.companyname;
@@ -531,11 +542,13 @@ router.post('/register/company', async (req, res) => {
     company.companypassword = req.body.companypassword;
 
      company.save((err, doc) => {
-       if (err) {
-         console.log(err);
-       } else {
+       if (!err) {
         sendMail(company.companyemail,company.code);
         res.send({ message: "a new company is successfully added", status: 200 });
+        user.comp = company._id;
+        user.username = company.companyname
+        user.email = company.companyemail
+        user.save();
        }
     })
     } else {
@@ -564,10 +577,13 @@ router.post('/login', async (req,res)=> {
 const  resultLoginConsultant = await ConsultantModel.findOne({ email: req.body.loginEmail });
  const  resultLoginCompany  = await CompanyModel.findOne({companyemail: req.body.loginEmail});
   if (resultLoginConsultant && bcrypt.compareSync(req.body.loginPassword, resultLoginConsultant.password) && resultLoginConsultant.statut === 'active') {
-    res.send({message: 'consultant active' , Token : jwt.sign({data : resultLoginConsultant}, 'user')})
+    var user = await UserModel.findOne({email : req.body.loginEmail});
+    res.send({message: 'consultant active' , Token : jwt.sign({data : resultLoginConsultant, User : user}, 'user')});
+
   }
   if (resultLoginCompany && bcrypt.compareSync(req.body.loginPassword, resultLoginCompany.companypassword) && resultLoginCompany.companystatut === 'active') {
-      res.send({message: 'Company active', Token : jwt.sign({data : resultLoginCompany}, 'user')})
+    var user = await UserModel.findOne({email : req.body.loginEmail});
+    res.send({message: 'Company active', Token : jwt.sign({data : resultLoginCompany, User : user}, 'user')});
   } else {
     res.send({message: 'error'})
 }

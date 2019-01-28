@@ -12,6 +12,7 @@ import { ProfilecompanyComponent } from './profilecompany/profilecompany.compone
 import { ProfilconsultantComponent } from './profilconsultant/profilconsultant.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
+import { ChatboxComponent } from './chatbox/chatbox.component';
 
 
 
@@ -22,7 +23,8 @@ import { ProfilelistComponent } from './profilelist/profilelist.component';
     ProfilecompanyComponent,
     ProfilconsultantComponent,
     ConfirmationComponent,
-    ProfilelistComponent
+    ProfilelistComponent,
+    ChatboxComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ProfilconsultantComponent } from './profilconsultant/profilconsultant.component';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
+import { ChatboxComponent } from './chatbox/chatbox.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'profilelist',
     component: ProfilelistComponent
+  },
+  {
+    path : 'chatbox',
+    component : ChatboxComponent
   }
 ];
 

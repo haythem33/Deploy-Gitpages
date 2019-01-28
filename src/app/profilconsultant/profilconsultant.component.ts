@@ -77,6 +77,7 @@ visible = true;
   ];
   Salary: FormGroup;
   getSalary: any = [];
+  message: any;
 
   constructor(public auth: AuthService, public listService: ListService, public router: Router, public profileApi: ProfileApiService) {
     this.aboutMe = new FormGroup ({
@@ -87,7 +88,7 @@ visible = true;
       adresse: new FormControl('', [Validators.required]),
     });
     this.experience = new FormGroup ({
-      Duration: new FormControl('', [Validators.required, CustomValidation.checkLimit(1, 60) ]),
+      Duration: new FormControl('', [Validators.required, CustomValidation.checkLimit(1, 100) ]),
       CompanyName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(14)]),
       Description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]),
         });
@@ -100,6 +101,7 @@ visible = true;
 
   ngOnInit() {
     this.token = this.listService.decodetoken();
+    console.log(this.token['User']);
     if (this.token['data'].companyname) {
      this.accountname = this.token['data'].companyname;
       this.accountemail = this.token['data'].companyemail;

@@ -193,7 +193,6 @@
             <div>
               <div class="form-group">
                 <input type="number" formControlName="Duration" placeholder="experiencePeriode" class="form-control">
-                <!-- <div class="text-danger">required</div> -->
               </div>
               <div class="form-group">
                 <input type="text" formControlName="CompanyName" placeholder="companyName" class="form-control">
@@ -409,15 +408,15 @@
 
                     <div [formGroup]= "Salary">
                   <mat-form-field class="col-md-3">
-                      <input (change)="addSalery()" value="{{getSalary[0].day}}" matInput placeholder="Per Day" formControlName="day" type="number" class="example-right-align">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.day}}" matInput placeholder="Per Day" formControlName="day" type="number" class="example-right-align">
                       <span matPrefix>$&nbsp;</span>
                   </mat-form-field>
                   <mat-form-field class="col-md-3">
-                      <input (change)="addSalery()" value="{{getSalary[0].week}}" matInput placeholder="Per Week" formControlName="week" type="number" class="example-right-align">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.week}}" matInput placeholder="Per Week" formControlName="week" type="number" class="example-right-align">
                       <span matPrefix>$&nbsp;</span>
                   </mat-form-field>
                   <mat-form-field class="col-md-3">
-                      <input (change)="addSalery()" value="{{getSalary[0].month}}" matInput placeholder="Per Month" formControlName="month" type="number" class="example-right-align">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.month}}" matInput placeholder="Per Month" formControlName="month" type="number" class="example-right-align">
                       <span matPrefix>$&nbsp;</span>
                   </mat-form-field>
 

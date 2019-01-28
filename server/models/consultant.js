@@ -4,6 +4,7 @@ var ConsultantSchema = mongoose.Schema({
   code : {
     type : String
   },
+  user : {type: mongoose.SchemaTypes.ObjectId, ref:'user'},
   username: {
     type: String
   },
@@ -44,6 +45,6 @@ Salary: [{
   day: Number,
   week: Number,
   month: Number,
-}]
+}],
 })
 module.exports = ConsultantSchema;

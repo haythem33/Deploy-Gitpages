@@ -38,4 +38,7 @@ setSkills(code, form) {
 setSalary(code, form) {
   return this.http.post(`http://localhost:4000/profileConsultant/salary/${code}`, form);
 }
+getUser(id) {
+  return this.http.get(`http://localhost:4000/profileConsultant/user/${id}`);
+}
 }
