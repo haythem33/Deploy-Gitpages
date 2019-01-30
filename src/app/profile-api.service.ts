@@ -11,10 +11,10 @@ export class ProfileApiService {
 postApiAbout(code, form) {
   return this.http.post(`http://localhost:4000/profileConsultant/postProfile/${code}`, form);
 }
-uploadFile(file) {
+uploadFile(code, file) {
   const headers = new HttpHeaders();
     headers.set('Content-Type', 'form-data');
-    return this.http.post('http://localhost:4000/profileConsultant/upload/', file, {headers} );
+    return this.http.post(`http://localhost:4000/profileConsultant/upload/${code}`, file, {headers} );
 }
 getprofileApi(code) {
   return this.http.get(`http://localhost:4000/profileConsultant/getProfile/${code}`);

@@ -28,6 +28,7 @@ var ConsultantSchema = mongoose.Schema({
    Duration: Number,
    CompanyName: String,
    Description: String,
+   Poste: String,
 }],
 Disponibilité: {
   type: String,

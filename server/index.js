@@ -18,7 +18,8 @@ const filter = require('./filter/filterconsutlant');
 app.use('/filter',filter);
 const chatBox = require('./chatBox/message');
 app.use('/chatBox', chatBox );
-
+var publicDir = require('path').join(__dirname,'/uploads');
+app.use(express.static(publicDir));
 
 
 

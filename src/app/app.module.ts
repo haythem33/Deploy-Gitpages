@@ -15,7 +15,6 @@ import { ProfilelistComponent } from './profilelist/profilelist.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +32,7 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    Control
+    Control,
   ],
   providers: [],
   bootstrap: [AppComponent]

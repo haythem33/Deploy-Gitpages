@@ -78,19 +78,22 @@ visible = true;
   Salary: FormGroup;
   getSalary: any = [];
   message: any;
+  imagePath: any;
 
+  // tslint:disable-next-line:max-line-length
   constructor(public auth: AuthService, public listService: ListService, public router: Router, public profileApi: ProfileApiService) {
     this.aboutMe = new FormGroup ({
       name: new FormControl ('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
       lastname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
       telephone: new FormControl('', [Validators.required, CustomValidation.checkLimit(10000000, 99999999)]),
-      photo: new FormControl ('', [Validators.required]),
       adresse: new FormControl('', [Validators.required]),
+      photo: new FormControl ('', [Validators.required]),
     });
     this.experience = new FormGroup ({
-      Duration: new FormControl('', [Validators.required, CustomValidation.checkLimit(1, 100) ]),
+      Duration: new FormControl('', [Validators.required]),
       CompanyName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(14)]),
-      Description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]),
+      Description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      Poste : new FormControl ('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
         });
         this.Salary = new FormGroup({
             day: new FormControl   ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
@@ -138,11 +141,7 @@ visible = true;
          document.getElementById('buttonModal').innerHTML = this.togglemodal;
     });
   }
-  removeFakePath() {
-   this.fakePath = this.aboutMe.value.photo.slice(12, this.aboutMe.value.photo.length);
-  }
   removeFakePathUrl(f) {
-
     this.fakePath = f.slice(12, f.length);
     return this.fakePath;
   }
@@ -152,7 +151,7 @@ visible = true;
   uploadFile() {
     const fba = new FormData();
     fba.append('file', this.fileUpload[0]);
-    this.profileApi.uploadFile(fba).subscribe(res => {
+    this.profileApi.uploadFile(this.token['data'].code, fba).subscribe(res => {
       console.log(res);
     });
   }

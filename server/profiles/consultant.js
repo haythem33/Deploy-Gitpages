@@ -16,10 +16,9 @@ var upload = multer({
   storage: storage
 })
 // upload image
-router.post('/upload', upload.single('file'), function (req, res, next) {
-  res.send(req.file);
+router.post('/upload/:code',  upload.single('file'), async (req, res, next) => {
+ res.send(req.file)
 });
-
 // add aboutme
 router.post('/postProfile/:code', async (req,res)=> {
   let aboutMe = req.body;

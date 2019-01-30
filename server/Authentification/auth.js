@@ -9,9 +9,6 @@ const port = process.env.port || 4000;
 /*const fs = require('fs');
 var htmlstream = fs.createReadStream("./sendemail.html");*/
 const uuidV4 = require('uuid/v4');
-var request = require('request');
-var http = require('http');
-const Window = require('window');
 
 
 //importation des models//
@@ -576,18 +573,31 @@ router.get('/consultant/confirmation/:code', async (req,res)=> {
 router.post('/login', async (req,res)=> {
 const  resultLoginConsultant = await ConsultantModel.findOne({ email: req.body.loginEmail });
  const  resultLoginCompany  = await CompanyModel.findOne({companyemail: req.body.loginEmail});
-  if (resultLoginConsultant && bcrypt.compareSync(req.body.loginPassword, resultLoginConsultant.password) && resultLoginConsultant.statut === 'active') {
+ if (resultLoginConsultant) {
+  if (bcrypt.compareSync(req.body.loginPassword, resultLoginConsultant.password) && resultLoginConsultant.statut === 'active') {
     var user = await UserModel.findOne({email : req.body.loginEmail});
     res.send({message: 'consultant active' , Token : jwt.sign({data : resultLoginConsultant, User : user}, 'user')});
 
   }
-  if (resultLoginCompany && bcrypt.compareSync(req.body.loginPassword, resultLoginCompany.companypassword) && resultLoginCompany.companystatut === 'active') {
+  if (!resultLoginConsultant || !bcrypt.compareSync(req.body.loginPassword, resultLoginConsultant.password)) {
+    res.send({message :'erreur'})
+  }
+  if (resultLoginConsultant.statut === 'not active') {
+    res.send({message: 'not active'});
+  }
+}
+else {
+ if (resultLoginCompany && bcrypt.compareSync(req.body.loginPassword, resultLoginCompany.companypassword) && resultLoginCompany.companystatut === 'active') {
     var user = await UserModel.findOne({email : req.body.loginEmail});
     res.send({message: 'Company active', Token : jwt.sign({data : resultLoginCompany, User : user}, 'user')});
-  } else {
-    res.send({message: 'error'})
+  }
+if (!resultLoginCompany || !bcrypt.compareSync(req.body.loginPassword, resultLoginCompany.companypassword)) {
+  res.send({message :'erreur'})
 }
-
+if (resultLoginCompany.companystatut === 'not active') {
+  res.send({message: 'not active'});
+}
+}
 })
 
 

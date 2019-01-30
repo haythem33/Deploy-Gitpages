@@ -75,15 +75,15 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-              <li class="menu-item active"><a title="Home" href="home-1.html">Home</a></li>
+              <li class="menu-item active"><a title="Home" href="home">Home</a></li>
               <li class="menu-item dropdown">
 
 
               <li class="menu-item dropdown">
-                <a title="" href="profilelist"  aria-expanded="false">ConsultantList</a>
+                <a title="" href="profilelist" aria-expanded="false">ConsultantList</a>
               </li>
               <li class="menu-item dropdown">
-                <a title="" href="profilconsultant"  aria-expanded="false">Profile</a>
+                <a title="" href="profilconsultant" aria-expanded="false">Profile</a>
 
               </li>
             </ul>
@@ -161,10 +161,10 @@
 
             </div>
             <div class="form-group">
-              <input type="file" accept="image/x-png,image/gif,image/jpeg" formControlName="photo" (change)="removeFakePath();filechangeEvent($event)"
+              <input type="file" accept="image/x-png,image/gif,image/jpeg" formControlName="photo" (change)="filechangeEvent($event)"
                 name="file" id="file" class="inputfile" />
               <label class="inputlabel" for="file">Choose Your photo</label>
-              <p>{{fakePath}}</p>
+              <p>{{removeFakePathUrl(aboutMe.value.photo)}}</p>
             </div>
             <button [disabled]="aboutMe.invalid" data-dismiss="modal" (click)="addAboutMe();uploadFile()" class="button primary-bg btn-block">Add</button>
             <!--form-->
@@ -193,15 +193,27 @@
             <div>
               <div class="form-group">
                 <input type="number" formControlName="Duration" placeholder="experiencePeriode" class="form-control">
+                <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].hasError('required') "
+                  class="text-danger">Required</div>
+                <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].invalid" class="text-danger">the
+                  Maximum year is 60</div>
               </div>
               <div class="form-group">
                 <input type="text" formControlName="CompanyName" placeholder="companyName" class="form-control">
-                <!--<div class="text-danger">required</div> -->
+                <div *ngIf="experience.controls['CompanyName'].touched && experience.controls['CompanyName'].hasError('required') "
+                  class="text-danger">Required</div>
               </div>
               <div class="form-group">
-                <input type="text" formControlName="Description" placeholder="poste" class="form-control">
-                <!-- <div class="text-danger" *ngIf="exp.controls['poste'].touched && exp.controls['poste'].invalid">Error</div> -->
-              </div>
+                  <input type="text"  formControlName="Poste" placeholder="poste" class="form-control">
+                  <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
+                    class="text-danger">Required</div>
+                </div>
+                <div class="form-group">
+                    <textarea type="text"  minlength="2" maxlength="100" formControlName="Description" placeholder="a small description" class="form-control"></textarea>
+                    <div *ngIf="experience.controls['Description'].touched && experience.controls['Description'].hasError('required') "
+                      class="text-danger">Required</div>
+                  </div>
+
               <button (click)="addExp()" data-dismiss="modal" class="button primary-bg btn-block">Add</button>
             </div>
             <!--form-->
@@ -212,7 +224,7 @@
     </div>
   </div>
 </div>
-<!--End Modal Experience-->
+<!--End Modal Experience -->
 <!--Modal Edit Experience-->
 <div class="account-entry">
   <div class="modal fade" id="editexperience" tabindex="-1" role="dialog" aria-hidden="true">
@@ -229,21 +241,29 @@
           <form [formGroup]="experience">
             <div>
               <div class="form-group">
-                <input type="number" formControlName="Duration" placeholder="experiencePeriode" class="form-control">
+                <input type="number" value="{{exp[index]?.Duration}}" formControlName="Duration" placeholder="experiencePeriode" class="form-control">
                 <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].hasError('required') "
                   class="text-danger">Required</div>
                 <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].invalid" class="text-danger">the
                   Maximum year is 60</div>
               </div>
               <div class="form-group">
-                <input type="text" formControlName="CompanyName" placeholder="companyName" class="form-control">
-                <!--<div class="text-danger">required</div> -->
+                <input type="text" value="{{exp[index]?.CompanyName}}" formControlName="CompanyName" placeholder="companyName" class="form-control">
+                <div *ngIf="experience.controls['CompanyName'].touched && experience.controls['CompanyName'].hasError('required') "
+                  class="text-danger">Required</div>
               </div>
               <div class="form-group">
-                <input type="text" formControlName="Description" placeholder="poste" class="form-control">
-                <!-- <div class="text-danger" *ngIf="exp.controls['poste'].touched && exp.controls['poste'].invalid">Error</div> -->
+                  <input type="text" value="{{exp[index]?.Poste}}" formControlName="Poste" placeholder="poste" class="form-control">
+                  <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
+                    class="text-danger">Required</div>
+                </div>
+
+              <div class="form-group">
+                <textarea type="text" value="{{exp[index]?.Description}}" minlength="2" maxlength="100" formControlName="Description" placeholder="a small description" class="form-control"></textarea>
+                <div *ngIf="experience.controls['Description'].touched && experience.controls['Description'].hasError('required') "
+                  class="text-danger">Required</div>
               </div>
-              <button (click)="editExp()" data-dismiss="modal" class="button primary-bg btn-block">Add</button>
+              <button [disabled]="experience.invalid" (click)="editExp()" data-dismiss="modal" class="button primary-bg btn-block">Edit</button>
             </div>
             <!--form-->
           </form>
@@ -254,6 +274,134 @@
   </div>
 </div>
 <!--End Of Modal Edit Experience-->
+<!--Modal Full Profile-->
+<div class="modal fade bd-example-modal-xl" id="FullProfile" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-img">
+              <img src="./../../assets/imageUser/Seif.jpg" alt="" />
+              <div class="file btn btn-lg btn-primary">
+                Change Photo
+                <input type="file" name="file" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="profile-head">
+              <h5>
+
+              </h5>
+              <h6>
+
+              </h6>
+              <p class="proile-rating"></p>
+
+            </div>
+          </div>
+          <div class="col-md-2">
+            <input style="margin-bottom: 20px;" type="submit" data-dismiss="modal" class="profile-edit-btn" name="btnAddMore"
+              value="Exit" />
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+          <div style="margin-bottom:20px;" class="profile-head">
+            <div class="row">
+              <div  class="col-md-4"></div>
+              <div class="col-md-8">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                  aria-selected="true">Experience</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                  aria-selected="false">Categorie</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                    aria-selected="false">Salary</a>
+                </li>
+            </ul>
+          </div>
+          </div>
+          </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Societe</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Poste</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>experiencePeriode</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>6 year</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>institut</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Diplome</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Debut</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<!--End Of Modal Full Profile-->
 <div class="alice-bg section-padding-bottom">
   <div class="container no-gliters">
     <div class="row no-gliters">
@@ -265,20 +413,20 @@
               <div class="basic-info-input">
                 <h4><i data-feather="plus-circle"></i>Profile</h4>
                 <div id="about" class="row">
-                  <label class="col-md-9 col-form-label">About Me</label>
+                  <label style="color:#246df8" class="col-md-9 col-form-label">About Me</label>
                   <div class="col-md-3" id="buttonModal">
                     <button data-toggle="modal" data-target="#aboutMe" class="add-new-field">+ add</button>
                   </div>
                 </div>
                 <!--NgFor-->
-
+                <div *ngIf="afficherAboutMe?.length === 1">
                 <div *ngFor="let about of afficherAboutMe">
-                  <div *ngIf="afficherAboutMe.length === 1">
+
                     <div id="education" class="row">
                       <label class="col-md-6 col-form-label">Full Name :</label>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <h4>{{about.name}} {{about.lastname}}</h4>
+                          <h6>{{about.name}} {{about.lastname}}</h6>
                         </div>
                       </div>
                     </div>
@@ -302,7 +450,7 @@
                   <!--End Of NgFor aboutme-->
                 </div>
                 <div style="margin-top:20px;" class="row">
-                  <label style="font-size:15px" class="col-md-9 col-form-label">Experience</label>
+                  <label style="font-size:15px; color: #246df8" class="col-md-9 col-form-label">Experience</label>
                   <div class="col-md-3">
                     <div id="expButton" class="form-group">
                       <button data-toggle="modal" data-target="#experience" class="add-new-field">+ add </button>
@@ -311,92 +459,102 @@
                 </div>
                 <!--NgFor Experience-->
                 <div *ngIf="exp?.length > 0">
-                <div  *ngFor="let expp of exp; let i = index">
-                  <div class="row">
-                    <h4 style="margin-top:20px;color: #246df8;" class="col-md-9">experience {{i + 1}}</h4>
-                    <div class="col-md-3">
-                      <div id="expButton" class="form-group">
-                        <button style="margin-top:20px;" data-toggle="modal" (click)="getIndex(i)" data-target="#editexperience"
-                          class="add-new-field">Edit</button>
+                  <div *ngFor="let expp of exp; let i = index">
+                    <div class="row">
+                      <h4 style="margin-top:20px;color: #246df8;" class="col-md-9">experience {{i + 1}}</h4>
+                      <div class="col-md-3">
+                        <div id="expButton" class="form-group">
+                          <button style="margin-top:20px;" data-toggle="modal" (click)="getIndex(i)" data-target="#editexperience"
+                            class="add-new-field">Edit</button>
+                        </div>
                       </div>
-                    </div>
-                    <label class="col-md-6 col-form-label">Year :</label>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <h6>{{expp.Duration}} Year</h6>
+                      <label class="col-md-6 col-form-label">Year :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{expp.Duration}} Year</h6>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Company name :</label>
-                    </div>
-                    <div class="col-md-6">
-                      <h6>{{expp.CompanyName}}</h6>
-                    </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Company name :</label>
+                      </div>
+                      <div class="col-md-6">
+                        <h6>{{expp.CompanyName}}</h6>
+                      </div>
 
-                    <label style="margin-top:20px;margin-bottom: 20px;" class="col-md-6 col-form-label">Description:</label>
-                    <div style="margin-top:20px;margin-bottom: 20px;" class="col-md-6">
-                      <h6 >{{expp.Description}}</h6>
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <label class="col-form-label">Poste :</label>
+                      </div>
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <h6 style="word-wrap:break-word">{{expp.Poste}}</h6>
+                      </div>
+                      <label style="margin-top:10px;margin-bottom: 10px;" class="col-md-6 col-form-label">Description:</label>
+                      <div style="margin-top:10px;margin-bottom: 10px;" class="col-md-6">
+                        <h6>{{expp.Description}}</h6>
+                      </div>
                     </div>
                   </div>
-                </div>
                   <!--End Of Ngfor Experience-->
                 </div>
                 <div style="margin-top: 40px;" class="row">
                   <label style="color:#246df8;" class="col-md-2 col-form-label">Disponibilité : </label>
-                  <div *ngIf="inputValue?.length > 0" class="col-md-4">
-                    <h6>{{inputValue}} </h6>
-
-                  </div>
-                  <div class="col-md-3">
-                  <div *ngIf="conditionMaterial === 1">
+                  <div class="col-md-4">
+                    <div *ngIf="conditionMaterial === 1">
                       <mat-select placeholder="Choose" (valueChange)="addDispo($event)">
                         <mat-option>--</mat-option>
                         <mat-option *ngFor="let choice of DispoChoice" [value]="choice.name">
                           {{choice.name}}
                         </mat-option>
                       </mat-select>
+                    </div>
                   </div>
-                </div>
+
+                  <div class="col-md-3">
+                    <div *ngIf="inputValue?.length > 0">
+                      <h6>{{inputValue}} </h6>
+
+                    </div>
+                  </div>
+
                   <div class="col-md-2">
-                  <button  (click)="editDispo()" class="add-new-field ">Edit</button>
-                </div>
+                    <button (click)="editDispo()" class="add-new-field ">Edit</button>
+                  </div>
                 </div>
 
                 <div style="margin-top: 20px;" class="row">
                   <label style="color:#246df8;" class="col-md-2 col-form-label">Categorie : </label>
-                  <div *ngIf="inputValue2?.length > 0" class="col-md-4">
-                    <h6>{{inputValue2}}</h6>
-
-                  </div>
-                  <div class="col-md-3">
-                  <div id="deleteEdit" *ngIf="conditionMaterial2 > 0">
+                  <div class="col-md-4">
+                    <div id="deleteEdit" *ngIf="conditionMaterial2 > 0">
                       <mat-select placeholder="Choose" (valueChange)="addCategorie($event)">
                         <mat-option>--</mat-option>
                         <mat-option *ngFor="let choice of categoriesValue" [value]="choice.category">
                           {{choice.category}}
                         </mat-option>
                       </mat-select>
+                    </div>
                   </div>
-                </div>
+                  <div class="col-md-3">
+
+                    <div *ngIf="inputValue2?.length > 0">
+                      <h6>{{inputValue2}}</h6>
+
+                    </div>
+                  </div>
                   <div class="col-md-2">
-                  <button  (click)="editCategorie()" class="add-new-field ">Edit</button>
-                </div>
+                    <button (click)="editCategorie()" class="add-new-field">Edit</button>
+                  </div>
                 </div>
                 <div style="margin-top:20px;" class="form-group row">
                   <label style="color:#246df8;" class="col-md-2 col-form-label">Skills : </label>
                   <div class="col-md-9">
                     <mat-form-field class="example-chip-list">
                       <mat-chip-list #chipList>
-                        <mat-chip  *ngFor="let skill of skills" [selectable]="selectable"
-                                 [removable]="removable" (removed)="remove(skill);pushSkill(skills)">
+                        <mat-chip *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable"
+                          (removed)="remove(skill);pushSkill(skills)">
                           {{skill.name}}
                           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
-                        <input placeholder="New skill..."
-                               [matChipInputFor]="chipList"
-                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                               [matChipInputAddOnBlur]="addOnBlur"
-                               (matChipInputTokenEnd)="add($event);pushSkill(skills)">
+                        <input placeholder="New skill..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event);pushSkill(skills)">
                       </mat-chip-list>
                     </mat-form-field>
 
@@ -406,57 +564,56 @@
 
                   <label class="col-md-2 col-form-label labelSalary">Salary : </label>
 
-                    <div [formGroup]= "Salary">
-                  <mat-form-field class="col-md-3">
-                      <input (change)="addSalery()" value="{{getSalary[0]?.day}}" matInput placeholder="Per Day" formControlName="day" type="number" class="example-right-align">
+                  <div [formGroup]="Salary">
+                    <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.day}}" matInput placeholder="Per Day"
+                        formControlName="day" type="number" class="example-right-align">
                       <span matPrefix>$&nbsp;</span>
-                  </mat-form-field>
-                  <mat-form-field class="col-md-3">
-                      <input (change)="addSalery()" value="{{getSalary[0]?.week}}" matInput placeholder="Per Week" formControlName="week" type="number" class="example-right-align">
+                    </mat-form-field>
+                    <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.week}}" matInput placeholder="Per Week"
+                        formControlName="week" type="number" class="example-right-align">
                       <span matPrefix>$&nbsp;</span>
-                  </mat-form-field>
-                  <mat-form-field class="col-md-3">
-                      <input (change)="addSalery()" value="{{getSalary[0]?.month}}" matInput placeholder="Per Month" formControlName="month" type="number" class="example-right-align">
+                    </mat-form-field>
+                    <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.month}}" matInput placeholder="Per Month"
+                        formControlName="month" type="number" class="example-right-align">
                       <span matPrefix>$&nbsp;</span>
-                  </mat-form-field>
+                    </mat-form-field>
 
+                  </div>
                 </div>
-                </div>
-
-
+                <div class="text-center">
+                <button data-toggle="modal" data-target="#FullProfile" style="width:150px; margin-top:30px;margin-bottom:30px;" class="add-new-field" >Save Changes</button>
+              </div>
               </div>
               <!--form-->
             </div>
           </div>
           <div class="post-sidebar">
-            <h5><i data-feather="arrow-down-circle"></i>Navigation</h5>
+            <h5><i data-feather="arrow-down-circle"></i>{{accountname}}</h5>
             <ul class="sidebar-menu">
-              <li><a href="#full-name">Full Name</a></li>
-              <li><a href="#information">Informations</a></li>
-              <li><a href="#about">About You</a></li>
-              <li><a href="#education">Education</a></li>
-              <li><a href="#experience">Work Experiance</a></li>
-              <li><a href="#skill">Professional Skill</a></li>
-              <li><a href="#qualification">Special Qualification</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
-              <li><a href="#cv">Upload CV</a></li>
-              <li><a href="#cover">Cover Letter</a></li>
-              <li><a href="#profile">Social Profile</a></li>
-              <li><a href="#details">Personal Details</a></li>
+              <li><a href="#full-name">{{accountemail}}</a></li>
+              <li><a href="javascript:void(0)">View My Profile</a></li>
+              <li><a href="#about"></a></li>
+              <li><a href="#education"></a></li>
+              <li><a href="#experience"></a></li>
+              <li><a href="#skill"></a></li>
+              <li><a href="#qualification"></a></li>
+              <li><a href="#portfolio"></a></li>
+              <li><a href="#cv"></a></li>
+              <li><a href="#cover"></a></li>
+              <li><a href="#profile"></a></li>
+              <li><a href="#details"></a></li>
             </ul>
-            <div class="signin-option">
-              <p>Have an Account ? Before submit job you need to sign in !</p>
-              <div class="buttons">
-                <a href="#" class="signin">Sign in</a>
-                <a href="#" class="register">Register</a>
-              </div>
+
+              <p></p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 <!-- Call to Action -->
 <div class="call-to-action-bg padding-top-90 padding-bottom-90">
@@ -594,4 +751,4 @@
       </div>
     </div>
   </div>
-  </footer>
+</footer>

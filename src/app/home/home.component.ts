@@ -57,12 +57,16 @@ registerApiConsultant() {
 }
 confirmLogin() {
    this.auth.loginApi(this.loginForm.value).subscribe(res => {
-     if (res['message'] === 'error') {
-       alert('either your account is not active or there is a error in the cordonne');
-       console.log(res);
-     } else {
-       localStorage.setItem('token', res['Token']);
+     if (res['message'] === 'consultant active' || res['message'] === 'Company active') {
+        localStorage.setItem('token', res['Token']);
        window.location.replace('http://localhost:4200/profilconsultant');
+     } else {
+      if (res['message'] === 'erreur') {
+        alert('you have a error in the value');
+      }
+      if (res['message'] === 'not active') {
+        alert('you have to active the account');
+      }
      }
   });
   }
