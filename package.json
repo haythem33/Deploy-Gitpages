@@ -36,6 +36,7 @@
     "jwt-decode": "^2.2.0",
     "mongoose": "^5.4.3",
     "multer": "^1.4.1",
+    "ngx-auto-scroll": "^1.1.0",
     "ngx-filter-pipe": "^2.1.2",
     "node-bcrypt": "0.0.1",
     "nodemailer": "^5.1.1",

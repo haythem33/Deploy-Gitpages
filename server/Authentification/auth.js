@@ -546,6 +546,8 @@ router.post('/register/company', async (req, res) => {
         user.username = company.companyname
         user.email = company.companyemail
         user.save();
+        company.user = user._id;
+        company.save()
        }
     })
     } else {

@@ -2,6 +2,8 @@ const router = require('express').Router();
 var mongoose = require('mongoose');
 var Consultant = require('./../models/consultant');
 var ConsultantModel = mongoose.model('consultant', Consultant);
+var Company = require('./../models/company');
+var CompanyModel = mongoose.model('company', Company);
 var multer  = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -78,9 +80,13 @@ router.post('/salary/:code', async (req,res)=> {
 });
 // get user consultant
 router.get('/user/:id', async (req,res)=> {
-  const user = await ConsultantModel.find({user : req.params.id}).populate('user').then(result => {
-    res.send(result);
-  })
-})
+  const userConsultant = await ConsultantModel.findOne({user : req.params.id}).populate('user');
+  const userCompany = await CompanyModel.findOne({user: req.params.id}).populate('user');
+  if (userConsultant) {
+    res.send(userConsultant);
+  } else {
+    res.send(userCompany);
+  }
+});
 
 module.exports = router

@@ -7,7 +7,7 @@ const ConversationSchema = mongoose.Schema({
       from : {type: mongoose.SchemaTypes.ObjectId, ref:'user'},
       to : {type: mongoose.SchemaTypes.ObjectId, ref:'user'},
       contenu : String,
-      date: String,
+      date: Date,
     }],
 
 })

@@ -41,4 +41,5 @@ setSalary(code, form) {
 getUser(id) {
   return this.http.get(`http://localhost:4000/profileConsultant/user/${id}`);
 }
+
 }

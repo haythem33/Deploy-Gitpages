@@ -11,43 +11,8 @@
           </div>
           <div class="top-nav">
             <div class="dropdown header-top-notification">
-              <a href="#" class="notification-button">Notification</a>
-              <div class="notification-card">
-                <div class="notification-head">
-                  <span>Notifications</span>
-                  <a href="#">Mark all as read</a>
-                </div>
-                <div class="notification-body">
-                  <a href="home-2.html" class="notification-list">
-                    <i class="fas fa-bolt"></i>
-                    <p>Your Resume Updated!</p>
-                    <span class="time">5 hours ago</span>
-                  </a>
-                  <a href="#" class="notification-list">
-                    <i class="fas fa-arrow-circle-down"></i>
-                    <p>Someone downloaded resume</p>
-                    <span class="time">11 hours ago</span>
-                  </a>
-                  <a href="#" class="notification-list">
-                    <i class="fas fa-check-square"></i>
-                    <p>You applied for Project Manager <span>@homeland</span></p>
-                    <span class="time">11 hours ago</span>
-                  </a>
-                  <a href="#" class="notification-list">
-                    <i class="fas fa-user"></i>
-                    <p>You changed password</p>
-                    <span class="time">5 hours ago</span>
-                  </a>
-                  <a href="#" class="notification-list">
-                    <i class="fas fa-arrow-circle-down"></i>
-                    <p>Someone downloaded resume</p>
-                    <span class="time">11 hours ago</span>
-                  </a>
-                </div>
-                <div class="notification-footer">
-                  <a href="#">See all notification</a>
-                </div>
-              </div>
+              <a href="#" data-toggle="modal" data-target="#ModalMessage" class="notification-button">Inbox</a>
+
             </div>
             <div class="dropdown header-top-account">
               <a href="#" class="account-button">My Account</a>
@@ -68,12 +33,12 @@
             </div>
           </div>
         </div>
-        <nav class="navbar navbar-expand-lg cp-nav-2">
+        <nav class="navbar navbar-expand-lg cp-nav-2 bg-transparent">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse navbar-fixed-top" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="menu-item active"><a title="Home" href="home">Home</a></li>
               <li class="menu-item dropdown">
@@ -204,15 +169,16 @@
                   class="text-danger">Required</div>
               </div>
               <div class="form-group">
-                  <input type="text"  formControlName="Poste" placeholder="poste" class="form-control">
-                  <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
-                    class="text-danger">Required</div>
-                </div>
-                <div class="form-group">
-                    <textarea type="text"  minlength="2" maxlength="100" formControlName="Description" placeholder="a small description" class="form-control"></textarea>
-                    <div *ngIf="experience.controls['Description'].touched && experience.controls['Description'].hasError('required') "
-                      class="text-danger">Required</div>
-                  </div>
+                <input type="text" formControlName="Poste" placeholder="poste" class="form-control">
+                <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
+              <div class="form-group">
+                <textarea type="text" minlength="2" maxlength="100" formControlName="Description" placeholder="a small description"
+                  class="form-control"></textarea>
+                <div *ngIf="experience.controls['Description'].touched && experience.controls['Description'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
 
               <button (click)="addExp()" data-dismiss="modal" class="button primary-bg btn-block">Add</button>
             </div>
@@ -241,25 +207,28 @@
           <form [formGroup]="experience">
             <div>
               <div class="form-group">
-                <input type="number" value="{{exp[index]?.Duration}}" formControlName="Duration" placeholder="experiencePeriode" class="form-control">
+                <input type="number" value="{{exp[index]?.Duration}}" formControlName="Duration" placeholder="experiencePeriode"
+                  class="form-control">
                 <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].hasError('required') "
                   class="text-danger">Required</div>
                 <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].invalid" class="text-danger">the
                   Maximum year is 60</div>
               </div>
               <div class="form-group">
-                <input type="text" value="{{exp[index]?.CompanyName}}" formControlName="CompanyName" placeholder="companyName" class="form-control">
+                <input type="text" value="{{exp[index]?.CompanyName}}" formControlName="CompanyName" placeholder="companyName"
+                  class="form-control">
                 <div *ngIf="experience.controls['CompanyName'].touched && experience.controls['CompanyName'].hasError('required') "
                   class="text-danger">Required</div>
               </div>
               <div class="form-group">
-                  <input type="text" value="{{exp[index]?.Poste}}" formControlName="Poste" placeholder="poste" class="form-control">
-                  <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
-                    class="text-danger">Required</div>
-                </div>
+                <input type="text" value="{{exp[index]?.Poste}}" formControlName="Poste" placeholder="poste" class="form-control">
+                <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
 
               <div class="form-group">
-                <textarea type="text" value="{{exp[index]?.Description}}" minlength="2" maxlength="100" formControlName="Description" placeholder="a small description" class="form-control"></textarea>
+                <textarea type="text" value="{{exp[index]?.Description}}" minlength="2" maxlength="100" formControlName="Description"
+                  placeholder="a small description" class="form-control"></textarea>
                 <div *ngIf="experience.controls['Description'].touched && experience.controls['Description'].hasError('required') "
                   class="text-danger">Required</div>
               </div>
@@ -310,27 +279,27 @@
         </div>
       </div>
       <div class="modal-body">
-          <div style="margin-bottom:20px;" class="profile-head">
-            <div class="row">
-              <div  class="col-md-4"></div>
-              <div class="col-md-8">
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                  aria-selected="true">Experience</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                  aria-selected="false">Categorie</a>
-              </li>
-              <li class="nav-item">
+        <div style="margin-bottom:20px;" class="profile-head">
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    aria-selected="true">Experience</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                    aria-selected="false">Categorie</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
                     aria-selected="false">Salary</a>
                 </li>
-            </ul>
+              </ul>
+            </div>
           </div>
-          </div>
-          </div>
+        </div>
         <div class="row">
           <div class="col-md-8">
             <div class="tab-content profile-tab" id="myTabContent">
@@ -402,6 +371,91 @@
 
 </div>
 <!--End Of Modal Full Profile-->
+<!--Modal fullConversation Message-->
+<div class="modal fade right" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header messageBox">
+        <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let data of allUserMessage; let i = index">
+          <div *ngFor="let datas of [data]">
+            <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
+              data-target="#sideModalTR" class="row messagePointer">
+              <div *ngFor="let image of datas.aboutme" class="col-md-2">
+                <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
+              </div>
+              <div class="col-md-2">
+                <h6>{{datas.user.username}}</h6>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Of Modal fullConversation Message-->
+<!--Modal Private MessageConversation-->
+<div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  messagedialog modal-side modal-bottom-left" role="document">
+
+
+    <div   class="modal-content">
+      <div class="modal-header" *ngFor="let use of userMessage">
+        <h4 class="modal-title w-100" id="myModalLabel">{{use.user.username}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div #scrollMe  class="modal-body messagebody">
+        <div *ngFor="let msg of privateMessage">
+          <div  *ngFor="let sms of msg.messages">
+            <div class="row justify-content-end" *ngIf="sms.from === token['User']._id">
+
+              <div style="margin-bottom: 10px;" class="col-md-5">
+
+                  <p class="speech-bubble">{{sms.contenu}}</p>
+
+              </div>
+
+
+            </div>
+            <div class="row" *ngIf="sms.from !== token['User']._id">
+              <div style="margin-bottom: 10px;" class="col-md-4">
+
+                  <p class="speech-bubble2">{{sms.contenu}}</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer" *ngFor="let use of userMessage" [formGroup]="messageSend">
+
+          <mat-form-field class="example-full-width">
+              <textarea formControlName="contenu" class="example-form" matInput placeholder="new Message"></textarea>
+              </mat-form-field>
+              <button [disabled]="messageSend.invalid" (click)="sendMessage(use.user._id)"  color="primary" mat-icon-button><i class="material-icons">arrow_forward_ios</i></button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Private MessageConversation-->
 <div class="alice-bg section-padding-bottom">
   <div class="container no-gliters">
     <div class="row no-gliters">
@@ -420,7 +474,7 @@
                 </div>
                 <!--NgFor-->
                 <div *ngIf="afficherAboutMe?.length === 1">
-                <div *ngFor="let about of afficherAboutMe">
+                  <div *ngFor="let about of afficherAboutMe">
 
                     <div id="education" class="row">
                       <label class="col-md-6 col-form-label">Full Name :</label>
@@ -549,7 +603,7 @@
                     <mat-form-field class="example-chip-list">
                       <mat-chip-list #chipList>
                         <mat-chip *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable"
-                          (removed)="remove(skill);pushSkill(skills)">
+                          (removed)="pushSkill(skills);remove(skill)">
                           {{skill.name}}
                           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
@@ -584,8 +638,9 @@
                   </div>
                 </div>
                 <div class="text-center">
-                <button data-toggle="modal" data-target="#FullProfile" style="width:150px; margin-top:30px;margin-bottom:30px;" class="add-new-field" >Save Changes</button>
-              </div>
+                  <button data-toggle="modal" data-target="#FullProfile" style="width:150px; margin-top:30px;margin-bottom:30px;"
+                    class="add-new-field">Save Changes</button>
+                </div>
               </div>
               <!--form-->
             </div>
@@ -607,13 +662,13 @@
               <li><a href="#details"></a></li>
             </ul>
 
-              <p></p>
-            </div>
+            <p></p>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 <!-- Call to Action -->
 <div class="call-to-action-bg padding-top-90 padding-bottom-90">

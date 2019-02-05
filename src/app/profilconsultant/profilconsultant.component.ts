@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild, } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ListService } from '../list.service';
 import { Route , Router } from '@angular/router';
@@ -8,6 +8,8 @@ import { Control } from '../control';
 import {ProfileApiService } from '../profile-api.service';
 import {MatChipInputEvent} from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MessageService } from './../message.service';
+
 
 @Component({
   selector: 'app-profilconsultant',
@@ -15,6 +17,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
   styleUrls: ['./profilconsultant.component.css', './../../assets/dashboard/css/dashboard.css']
 })
 export class ProfilconsultantComponent implements OnInit {
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 token;
 aboutMelenght = 0;
 afficherAboutMe;
@@ -79,9 +82,16 @@ visible = true;
   getSalary: any = [];
   message: any;
   imagePath: any;
+  allUser: any = [];
+  allUserMessage: any = [];
+  privateMessage: any;
+  userMessage: any;
+  messageSend: FormGroup;
+  schemaMessage: any;
+
 
   // tslint:disable-next-line:max-line-length
-  constructor(public auth: AuthService, public listService: ListService, public router: Router, public profileApi: ProfileApiService) {
+  constructor(public auth: AuthService, public listService: ListService, public router: Router, public profileApi: ProfileApiService, public messageApi: MessageService) {
     this.aboutMe = new FormGroup ({
       name: new FormControl ('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
       lastname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
@@ -99,6 +109,9 @@ visible = true;
             day: new FormControl   ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
             week: new FormControl  ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
             month: new FormControl ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
+        });
+        this.messageSend = new FormGroup({
+          contenu : new FormControl('', [Validators.required, Validators.minLength(2)]),
         });
    }
 
@@ -126,6 +139,18 @@ visible = true;
          document.getElementById('buttonModal').innerHTML = this.togglemodal;
       }
     });
+    this.messageApi.getConversation(this.token['User']._id).subscribe(res => {
+      this.allUser = res;
+      console.log(this.allUser);
+      for (let i = 0; i < this.allUser.length; i++) {
+        this.profileApi.getUser(this.allUser[i]).subscribe(data => {
+          this.allUserMessage.push(data);
+          console.log(this.allUserMessage);
+        });
+      }
+    });
+    this.scrollToBottom();
+
   }
 
   logOut() {
@@ -222,6 +247,48 @@ addSalery() {
     this.getSalary = res['Salary'];
   });
   }
+}
+findConversation(f) {
+  const obj = {id : f};
+this.messageApi.getPrivateConvertion(this.token['User']._id, obj).subscribe(res => {
+  this.privateMessage = [res];
+  console.log(this.privateMessage);
+});
+
+}
+getUserMessage(f) {
+  this.profileApi.getUser(f).subscribe(res => {
+    this.userMessage = [res];
+  });
+}
+sendMessage(f) {
+  this.schemaMessage = {
+    userOne : this.token['User']._id,
+    userTwo : f,
+    messages: [{
+      contenu : this.messageSend.value.contenu,
+      date : Date.now(),
+      from : this.token['User']._id,
+      to: f
+    }],
+  };
+  this.messageApi.sendMessage(this.schemaMessage).subscribe(res => {
+    console.log(res);
+    this.findConversation(f);
+    this.messageSend.patchValue({
+      contenu: '',
+    });
+  });
+
+}
+// tslint:disable-next-line:use-life-cycle-interface
+ngAfterViewChecked() {
+  this.scrollToBottom();
+}
+scrollToBottom(): void {
+  try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+  } catch (err) { }
 }
 }
 

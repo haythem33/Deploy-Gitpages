@@ -47,6 +47,7 @@ export class ProfilelistComponent implements OnInit {
       this.accountemail = this.token['data'].email;
     }
     this.listService.getConsultant().subscribe(res => {
+      console.log(res);
       this.listconsultant = res;
       this.dataSource = new MatTableDataSource(this.listconsultant);
       console.log('data', this.dataSource.data);
