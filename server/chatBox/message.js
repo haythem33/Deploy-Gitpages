@@ -4,23 +4,20 @@ var Conversation = require('./../models/conversation');
 var ConversationModel = mongoose.model('conversation', Conversation);
 var User = require('./../models/user');
 var UserModel = mongoose.model('user', User);
-const server = require('http').createServer(router);
-const io = require('socket.io')(server);
 // envoyer Message
 
-
-router.post('/message', async (req, res) => {
+ router.post('/message', async (req, res)  => {
   const getConversation = await ConversationModel.findOne({ userOne: req.body.userOne, userTwo: req.body.userTwo });
   const getConversation2 = await ConversationModel.findOne({ userOne: req.body.userTwo, userTwo: req.body.userOne });
   if (getConversation) {
     const setMessage = await ConversationModel.updateOne(getConversation, { $addToSet: { messages: req.body.messages } });
     res.send(setMessage);
-    io.emit('sendMessage', data);
+     req.app.io.emit('sendMessage');
   }
   else if (getConversation2) {
     const setMessage = await ConversationModel.updateOne(getConversation2, { $addToSet: { messages: req.body.messages } });
     res.send(setMessage);
-    io.emit('sendMessage', data);
+     req.app.io.emit('sendMessage');
 
   }
   else {
@@ -30,7 +27,7 @@ router.post('/message', async (req, res) => {
     conversation.messages = req.body.messages
     conversation.save();
     res.send(conversation);
-    io.emit('sendMessage', data);
+     req.app.io.emit('sendMessage');
   }
 });
 
@@ -45,8 +42,7 @@ router.post('/message', async (req, res) => {
       messageId.push(getMessage2[i].userOne);
     }
     res.send(messageId);
-    message = messageId;
-    io.emit('message', message);
+    req.app.io.emit('getAllMessage', messageId);
 
 
 
@@ -55,16 +51,12 @@ router.post('/message', async (req, res) => {
     const getConversation = await ConversationModel.findOne({ userOne: req.params.id, userTwo: req.body.id });
     const getConversation2 = await ConversationModel.findOne({ userOne: req.body.id, userTwo: req.params.id });
     if (getConversation) {
-      privatemessage = getConversation
-      res.send(privatemessage);
+      res.send(getConversation);
+
+      req.app.io.emit('privateMessage', getConversation);
     } else {
-      privatemessage = getConversation2
-      res.send(privatemessage);
+      res.send(getConversation2);
+      req.app.io.emit('privateMessage', getConversation2);
     }
   });
-
-
-
-
-
-module.exports = router
+  module.exports = router

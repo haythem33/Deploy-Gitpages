@@ -88,6 +88,7 @@ visible = true;
   userMessage: any;
   messageSend: FormGroup;
   schemaMessage: any;
+  socket: any;
 
 
   // tslint:disable-next-line:max-line-length
@@ -150,7 +151,9 @@ visible = true;
       }
     });
     this.scrollToBottom();
-
+    this.messageApi.getprivateMessageSocket().subscribe(data => {
+      this.privateMessage = [data];
+    });
   }
 
   logOut() {
@@ -252,7 +255,6 @@ findConversation(f) {
   const obj = {id : f};
 this.messageApi.getPrivateConvertion(this.token['User']._id, obj).subscribe(res => {
   this.privateMessage = [res];
-  console.log(this.privateMessage);
 });
 
 }
@@ -274,12 +276,11 @@ sendMessage(f) {
   };
   this.messageApi.sendMessage(this.schemaMessage).subscribe(res => {
     console.log(res);
-    this.findConversation(f);
+     this.findConversation(f);
     this.messageSend.patchValue({
       contenu: '',
     });
   });
-
 }
 // tslint:disable-next-line:use-life-cycle-interface
 ngAfterViewChecked() {

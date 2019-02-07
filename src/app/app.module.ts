@@ -13,7 +13,8 @@ import { ProfilconsultantComponent } from './profilconsultant/profilconsultant.c
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
     ReactiveFormsModule,
     HttpClientModule,
     Control,
+    SocketIoModule.forRoot(config),
   ],
   providers: [],
   bootstrap: [AppComponent]
