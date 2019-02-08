@@ -5,6 +5,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ProfilconsultantComponent } from './profilconsultant/profilconsultant.component';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
+import { ViewprofileComponent } from './viewprofile/viewprofile.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path : 'chatbox',
     component : ChatboxComponent
+  },
+  {
+    path : 'viewprofile',
+    component : ViewprofileComponent
   }
 ];
 

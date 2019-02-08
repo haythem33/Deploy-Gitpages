@@ -59,7 +59,7 @@ confirmLogin() {
    this.auth.loginApi(this.loginForm.value).subscribe(res => {
      if (res['message'] === 'consultant active' || res['message'] === 'Company active') {
         localStorage.setItem('token', res['Token']);
-       window.location.replace('http://localhost:4200/profilconsultant');
+       window.location.replace('http://localhost:4200/profilelist');
      } else {
       if (res['message'] === 'erreur') {
         alert('you have a error in the value');

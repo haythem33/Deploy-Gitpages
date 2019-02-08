@@ -248,33 +248,83 @@
   aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" *ngFor="let abo of afficherAboutMe">
         <div class="row">
           <div class="col-md-4">
             <div class="profile-img">
-              <img src="./../../assets/imageUser/Seif.jpg" alt="" />
+              <img src="http://localhost:4000/{{removeFakePathUrl(abo.photo)}}" alt="" />
               <div class="file btn btn-lg btn-primary">
                 Change Photo
                 <input type="file" name="file" />
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" style="margin-top:40px;">
             <div class="profile-head">
-              <h5>
 
-              </h5>
-              <h6>
+              <div class="row profile-tab" style="margin-bottom:20px;">
+              <div class="col-md-3">
+                <label>Full Name :</label>
+              </div>
+              <div class="col-md-3">
+                <p> {{abo.name}} {{abo.lastname}}</p>
+              </div>
+            </div>
+            <div class="row profile-tab" style="margin-bottom:20px;">
+                <div class="col-md-3">
+                  <label>Email :</label>
+                </div>
+                <div class="col-md-3">
+                  <p>{{accountemail}}</p>
+                </div>
+              </div>
+              <div class="row profile-tab" style="margin-bottom:20px;">
+                  <div class="col-md-3">
+                    <label>City :</label>
+                  </div>
+                  <div class="col-md-3">
+                    <p>{{abo.adresse}}</p>
+                  </div>
+                </div>
+                <div class="row profile-tab" style="margin-bottom:20px;">
+                    <div class="col-md-3">
+                      <label>Telephone :</label>
+                    </div>
+                    <div class="col-md-3">
+                      <p>{{abo.telephone}}</p>
+                    </div>
+                  </div>
+                  <div class="row profile-tab" style="margin-bottom:20px;">
+                      <div class="col-md-3">
+                        <label>Disponibilité :</label>
+                      </div>
+                      <div class="col-md-3">
+                        <p>{{inputValue}}</p>
+                      </div>
+                    </div>
+                    <div class="row profile-tab" style="margin-bottom:20px;">
+                        <div class="col-md-3">
+                          <label>Categorie :</label>
+                        </div>
+                        <div class="col-md-3">
+                          <p>{{inputValue2}}</p>
+                        </div>
+                      </div>
 
-              </h6>
-              <p class="proile-rating"></p>
 
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 profile-tab">
             <input style="margin-bottom: 20px;" type="submit" data-dismiss="modal" class="profile-edit-btn" name="btnAddMore"
-              value="Exit" />
+              value="Exit" /><br>
+               <label style="margin-left: 37px;">Skills</label>
+               <div class="row" *ngFor="let skill of skills">
 
+                    <mat-chip-list style="margin-bottom:5px; margin-left: 37px;">
+                   <mat-chip color="primary" selected>{{skill.name}}</mat-chip>
+                  </mat-chip-list>
+
+               </div>
           </div>
         </div>
       </div>
@@ -290,10 +340,6 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                    aria-selected="false">Categorie</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
                     aria-selected="false">Salary</a>
                 </li>
               </ul>
@@ -301,16 +347,18 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-12" >
             <div class="tab-content profile-tab" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div>
+                  <div *ngFor="let ex of exp; let i = index">
+                   <h6 style="margin-top: 10px;margin-bottom:10px;color: #246df8;">Experience {{i + 1}}</h6>
                   <div class="row">
                     <div class="col-md-6">
-                      <label>Societe</label>
+                      <label>CompanyName</label>
                     </div>
                     <div class="col-md-6">
-                      <p></p>
+                      <p>{{ex.CompanyName}}</p>
                     </div>
                   </div>
                   <div class="row">
@@ -318,7 +366,7 @@
                       <label>Poste</label>
                     </div>
                     <div class="col-md-6">
-                      <p></p>
+                      <p>{{ex.Poste}}</p>
                     </div>
                   </div>
                   <div class="row">
@@ -330,32 +378,33 @@
                     </div>
                   </div>
                 </div>
+                </div>
               </div>
 
-              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" >
+                <div *ngFor="let money of getSalary">
                   <div class="row">
                     <div class="col-md-6">
-                      <label>institut</label>
+                      <label>Per Day :</label>
                     </div>
                     <div class="col-md-6">
-                      <p></p>
+                      <p>{{money.day}}$</p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <label>Diplome</label>
+                      <label>Per Week</label>
                     </div>
                     <div class="col-md-6">
-                      <p></p>
+                      <p>{{money.week}}$</p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <label>Debut</label>
+                      <label>Per Month</label>
                     </div>
                     <div class="col-md-6">
-                      <p></p>
+                      <p>{{money.month}}$</p>
                     </div>
                   </div>
                 </div>
@@ -374,39 +423,39 @@
 <!--Modal fullConversation Message-->
 <div class="modal fade right" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-dialog modal-full-height modal-right" role="document">
 
 
-    <div class="modal-content">
-      <div class="modal-header messageBox">
-        <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div *ngFor="let data of allUserMessage; let i = index">
-          <div *ngFor="let datas of [data]">
-            <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
-              data-target="#sideModalTR" class="row messagePointer">
-              <div *ngFor="let image of datas.aboutme" class="col-md-2">
-                <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
-              </div>
-              <div class="col-md-2">
-                <h6>{{datas.user.username}}</h6>
+      <div class="modal-content">
+        <div class="modal-header messageBox">
+          <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let data of allUserMessage; let i = index">
+            <div *ngFor="let datas of [data]">
+              <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
+                data-target="#sideModalTR" class="row messagePointer">
+                <div *ngFor="let image of datas.aboutme" class="col-md-2">
+                  <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
+                </div>
+                <div class="col-md-2">
+                  <h6>{{datas.user.username}}</h6>
+                </div>
               </div>
             </div>
+
           </div>
 
         </div>
-
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <!--End Of Modal fullConversation Message-->
 <!--Modal Private MessageConversation-->
 <div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -422,7 +471,7 @@
       </div>
       <div #scrollMe  class="modal-body messagebody">
         <div *ngFor="let msg of privateMessage">
-          <div  *ngFor="let sms of msg.messages">
+          <div  *ngFor="let sms of msg?.messages">
             <div class="row justify-content-end" *ngIf="sms.from === token['User']._id">
 
               <div style="margin-bottom: 10px;" class="col-md-5">

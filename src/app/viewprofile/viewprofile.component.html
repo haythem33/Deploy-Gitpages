@@ -15,14 +15,14 @@
 
             </div>
             <div class="dropdown header-top-account">
-              <a href="#" class="account-button">My Account</a>
+              <a  class="account-button">My Account</a>
               <div class="account-card">
                 <div class="header-top-account-info">
                   <a href="#" class="account-thumb">
                     <img src="./../../assets/account/thumb-1.jpg" class="img-fluid" alt="">
                   </a>
                   <div class="account-body">
-                    <h5><a href="#">{{accountname}}</a></h5>
+                    <h5><a href="javascript:void(0)">{{accountname}}</a></h5>
                     <span class="mail">{{accountemail}}</span>
                   </div>
                 </div>
@@ -65,11 +65,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="breadcrumb-area">
-          <h1>Candidates List</h1>
+          <h1>Profile</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Candidates List</li>
             </ol>
           </nav>
         </div>
@@ -77,53 +75,57 @@
       <div class="col-md-6">
         <div class="breadcrumb-form">
           <!--form-->
-          <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-          </mat-form-field>
+          <div action="#">
+
+            <!--form-->
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!--Modal Full Message-->
+<!-- Breadcrumb End -->
+
+
+<!--Modal fullConversation Message-->
 <div class="modal fade right" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-dialog modal-full-height modal-right" role="document">
 
 
-    <div class="modal-content">
-      <div class="modal-header messageBox">
-        <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div *ngFor="let data of allUserMessage; let i = index">
-          <div *ngFor="let datas of [data]">
-            <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
-              data-target="#sideModalTR" class="row messagePointer">
-              <div *ngFor="let image of datas.aboutme" class="col-md-2">
-                <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
-              </div>
-              <div class="col-md-2">
-                <h6>{{datas.user.username}}</h6>
+      <div class="modal-content">
+        <div class="modal-header messageBox">
+          <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let data of allUserMessage; let i = index">
+            <div *ngFor="let datas of [data]">
+              <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
+                data-target="#sideModalTR" class="row messagePointer">
+                <div *ngFor="let image of datas.aboutme" class="col-md-2">
+                  <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
+                </div>
+                <div class="col-md-2">
+                  <h6>{{datas.user.username}}</h6>
+                </div>
               </div>
             </div>
+
           </div>
 
         </div>
-
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!--End Of ModalFull Message-->
+<!--End Of Modal fullConversation Message-->
 <!--Modal Private MessageConversation-->
-<div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog  messagedialog modal-side modal-bottom-left" role="document">
 
 
@@ -134,7 +136,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div #scrollMe  class="modal-body messagebody">
+      <div   class="modal-body messagebody">
         <div *ngFor="let msg of privateMessage">
           <div  *ngFor="let sms of msg?.messages">
             <div class="row justify-content-end" *ngIf="sms.from === token['User']._id">
@@ -170,137 +172,190 @@
   </div>
 </div>
 <!--End Modal Private MessageConversation-->
-<!-- Breadcrumb End -->
-
-<!-- Job Listing -->
 <div class="alice-bg section-padding-bottom">
-  <div class="container">
-    <div class="row no-gutters">
+  <div class="container no-gliters">
+    <div class="row no-gliters">
       <div class="col">
-        <div class="candidate-container">
-          <div class="filtered-candidate-wrapper">
+        <div class="post-container">
+          <div class="post-content-wrapper">
+            <!--form-->
+            <div action="#" class="job-post-form">
+              <div class="basic-info-input" *ngFor="let consultant of social">
+                  <button style="margin-top:10px;" href="javascript:void(0)" class="float-right add-new-field"  (click)="findConversation(consultant.user);getUserMessage(consultant.user)" data-toggle="modal" data-target="#sideModalTR">Send Message</button>
+                <h4><i data-feather="plus-circle"></i>Profile</h4>
 
-            <div class="candidate-view-controller-wrapper">
-              <div class="candidate-view-controller">
-                <div class="controller list active">
-                  <i data-feather="menu"></i>
+                <div id="about" class="row">
+                  <label style="color:#246df8" class="col-md-9 col-form-label">About Me</label>
                 </div>
-                <div class="controller grid">
-                  <i data-feather="grid"></i>
-                </div>
-                <div class="candidate-view-filter">
-                  <select class="selectpicker">
-                    <option value="" selected>Most Recent</option>
-                    <option value="california">Top Rated</option>
-                    <option value="las-vegas">Most Popular</option>
-                  </select>
-                </div>
-              </div>
-              <div class="showing-number">
-                <span>Showing 1–12 of 28 Jobs</span>
-              </div>
-            </div>
-            <div  *ngIf="dataSource"  class="candidate-filter-result">
-              <div class="candidate" *ngFor="let consultant of dataSource.filteredData ">
-                <div class="thumb">
-                  <a href="#">
+                <!--NgFor aboutMe-->
+                <div *ngIf="afficherAboutMe?.length === 1">
+                  <div *ngFor="let about of afficherAboutMe">
 
-                    <img src="http://localhost:4000/{{removeFakePathUrl(consultant.aboutme[0]?.photo)}}" class="img-fluid" alt="">
-                  </a>
-                </div>
-                <div class="body">
-                  <div class="content" *ngFor="let personalInfo of consultant.aboutme">
-                    <h4><a href="candidate-details.html">{{personalInfo.name}} {{personalInfo.lastname}}</a></h4>
-                    <div class="info">
-                      <span class="work-post"><a href="#"><i data-feather="check-square"></i></a></span>
-                      <span class="location"><a href="#"><i data-feather="map-pin"></i>{{personalInfo.adresse}}</a></span>
+                    <div id="education" class="row">
+                      <label class="col-md-6 col-form-label">Full Name :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{about.name}} {{about.lastname}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-md-6 col-form-label">City :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{about.adresse}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="experience" class="row">
+                      <label class="col-md-6 col-form-label">Tel :</label>
+                      <div>
+                        <div class="form-group col-md-6">
+                          <h6>{{about.telephone}}</h6>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="button-area">
-                    <a href="javascript:void(0)" (click)="getId(consultant.code)">View Resume</a><br>
-                     <a style="margin-top:10px;" href="javascript:void(0)"  (click)="findConversation(consultant.user);getUserMessage(consultant.user)" data-toggle="modal" data-target="#sideModalTR">Send Message</a>
+                  <!--End Of NgFor aboutme-->
+                </div>
+                <div style="margin-top:20px;" class="row">
+                  <label style="font-size:15px; color: #246df8" class="col-md-9 col-form-label">Experience</label>
+                  <div class="col-md-3">
+                    <div id="expButton" class="form-group">
+                    </div>
                   </div>
                 </div>
+                <!--NgFor Experience-->
+                <div *ngIf="exp?.length > 0">
+                  <div *ngFor="let expp of exp; let i = index">
+                    <div class="row">
+                      <h4 style="margin-top:20px;color: #246df8;" class="col-md-9">experience {{i + 1}}</h4>
+                      <div class="col-md-3">
+                        <div id="expButton" class="form-group">
+                      </div>
+                      </div>
+                      <label class="col-md-6 col-form-label">Year :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{expp.Duration}} Year</h6>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Company name :</label>
+                      </div>
+                      <div class="col-md-6">
+                        <h6>{{expp.CompanyName}}</h6>
+                      </div>
+
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <label class="col-form-label">Poste :</label>
+                      </div>
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <h6 style="word-wrap:break-word">{{expp.Poste}}</h6>
+                      </div>
+                      <label style="margin-top:10px;margin-bottom: 10px;" class="col-md-6 col-form-label">Description:</label>
+                      <div style="margin-top:10px;margin-bottom: 10px;" class="col-md-6">
+                        <h6>{{expp.Description}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <!--End Of Ngfor Experience-->
+                </div>
+                <div style="margin-top: 40px;" class="row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Disponibilité : </label>
+                  <div class="col-md-4">
+
+                  </div>
+
+                  <div class="col-md-3">
+                    <div>
+                      <h6>{{inputValue}}</h6>
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div style="margin-top: 20px;" class="row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Categorie : </label>
+                  <div class="col-md-4">
+
+                  </div>
+                  <div class="col-md-3">
+
+                    <h6>{{inputValue2}}</h6>
+                  </div>
+
+                </div>
+                <div style="margin-top:20px;" class="form-group row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Skills : </label>
+                  <div class="col-md-9">
+                      <mat-chip-list >
+                          <mat-chip *ngFor="let skill of skills" color="primary" selected>{{skill.name}}</mat-chip>
+                         </mat-chip-list>
+                  </div>
+                </div>
+                <div class="form-group row">
+
+                  <label class="col-md-2 col-form-label labelSalary">Salary : </label>
+
+
+                </div>
+                <div *ngFor="let money of getSalary">
+                 <div class="row">
+                   <div class="col-md-6">
+                     <label class="col-form-label">Per Day :</label>
+                   </div>
+                   <div class="col-md-6">
+                      <h6>{{money.day}}$</h6>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="col-md-6">
+                     <label class="col-form-label">Per Week</label>
+                   </div>
+                   <div class="col-md-6">
+                     <h6>{{money.week}}$</h6>
+                   </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Per Month</label>
+                    </div>
+                    <div class="col-md-6">
+                      <h6>{{money.month}}$</h6>
+                    </div>
+                  </div>
               </div>
             </div>
-
+              <!--form-->
+            </div>
           </div>
-          <div class="candidate-filter-wrapper">
-            <div class="selected-options">
-              <div class="selection-title">
-                <h4>You Selected</h4>
-                <a href="#">Clear All</a>
-              </div>
-              <ul class="filtered-options">
-              </ul>
-            </div>
-            <div class="candidate-filter-dropdown category">
-              <mat-select (valueChange)="FilterConsultant($event)" placeholder="category">
-                <mat-option>---</mat-option>
-                <mat-option *ngFor="let cat of categoriesValue" [value]="cat.category">
+          <div class="post-sidebar">
+            <h5 *ngFor="let img of afficherAboutMe"><i data-feather="arrow-down-circle"></i><img class="imageUser2" src="http://localhost:4000/{{removeFakePathUrl(img.photo)}}"></h5>
+            <ul *ngFor="let app of social" class="sidebar-menu">
+              <li><a href="javascript:void(0)">{{app.username}}</a></li>
+              <li><a href="javascript:void(0)">{{app.email}}</a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+            </ul>
 
-                  {{cat.category}}
-                </mat-option>
-              </mat-select>
-            </div>
-
-            <div class="candidate-filter-dropdown location">
-              <select class="selectpicker">
-                <option value="" selected>Location</option>
-                <option value="california">Chicago</option>
-                <option value="california">New York City</option>
-                <option value="california">San Francisco</option>
-                <option value="california">Washington</option>
-                <option value="california">Boston</option>
-                <option value="california">Los Angeles</option>
-                <option value="california">Seattle</option>
-                <option value="california">Las Vegas</option>
-                <option value="california">San Diego</option>
-              </select>
-            </div>
-            <div data-id="candidate-type" class="candidate-filter candidate-type">
-              <h4 class="option-title">Job Type</h4>
-              <ul>
-                <li class="full-time"><i data-feather="clock"></i><a href="#" data-attr="Full Time">Full Time</a></li>
-                <li class="part-time"><i data-feather="clock"></i><a href="#" data-attr="Part Time">Part Time</a></li>
-
-              </ul>
-            </div>
-            <div data-id="experience" class="candidate-filter experience">
-              <h4 class="option-title">Experience</h4>
-              <ul>
-                <li><a href="#" data-attr="Fresh">Fresh</a></li>
-                <li><a href="#" data-attr="Less than 1 year">Less than 1 year</a></li>
-                <li><a href="#" data-attr="2 Year">2 Year</a></li>
-                <li><a href="#" data-attr="3 Year">3 Year</a></li>
-                <li><a href="#" data-attr="4 Year">4 Year</a></li>
-                <li><a href="#" data-attr="5 Year">5 Year</a></li>
-                <li><a href="#" data-attr="Avobe 5 Years">Avobe 5 Years</a></li>
-              </ul>
-            </div>
-            <div class="candidate-filter">
-              <h4 class="option-title">Salary Range</h4>
-              <div class="price-range-slider">
-                <div class="nstSlider" data-range_min="0" data-range_max="10000" data-cur_min="0" data-cur_max="6130">
-                  <div class="bar"></div>
-                  <div class="leftGrip"></div>
-                  <div class="rightGrip"></div>
-                  <div class="grip-label">
-                    <span class="leftLabel"></span>
-                    <span class="rightLabel"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
+            <p></p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Job Listing End -->
 
 <!-- Call to Action -->
 <div class="call-to-action-bg padding-top-90 padding-bottom-90">
@@ -313,7 +368,11 @@
             <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
               luctus nec.</p>
           </div>
-
+          <div class="call-to-action-button">
+            <a href="#" class="button">Add Resume</a>
+            <span>Or</span>
+            <a href="#" class="button">Post A Job</a>
+          </div>
         </div>
       </div>
     </div>
@@ -435,4 +494,4 @@
     </div>
   </div>
 </footer>
-<!-- Footer End -->
+

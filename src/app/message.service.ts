@@ -29,4 +29,7 @@ export class MessageService {
   getprivateMessageSocket() {
     return this.socket.fromEvent('privateMessage');
   }
+  getAllMessageSocket() {
+   return this.socket.fromEvent('getAllMessage');
+ }
 }

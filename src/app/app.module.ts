@@ -14,6 +14,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ProfilelistComponent } from './profilelist/profilelist.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ViewprofileComponent } from './viewprofile/viewprofile.component';
 const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
@@ -24,7 +25,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
     ProfilconsultantComponent,
     ConfirmationComponent,
     ProfilelistComponent,
-    ChatboxComponent
+    ChatboxComponent,
+    ViewprofileComponent
   ],
   imports: [
     BrowserModule,

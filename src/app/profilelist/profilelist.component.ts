@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild, } from '@angular/core';
 import { ListService } from '../list.service';
 import { Router } from '@angular/router';
 import { Control } from '../control';
@@ -6,6 +6,10 @@ import { from } from 'rxjs';
 import { MatTableDataSource } from '@angular/material';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { DataSource } from '@angular/cdk/table';
+import { MessageService } from './../message.service';
+import {ProfileApiService } from '../profile-api.service';
+import { FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-profilelist',
@@ -13,6 +17,7 @@ import { DataSource } from '@angular/cdk/table';
   styleUrls: ['./profilelist.component.css']
 })
 export class ProfilelistComponent implements OnInit {
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   token;
   accountname;
   accountemail;
@@ -27,11 +32,20 @@ export class ProfilelistComponent implements OnInit {
     { category: 'Marketing & Sales' },
     { category: 'Telecommunication' },
   ];
+  allUser: any = [];
+  allUserMessage: any = [];
+  privateMessage: any;
   userFilter: any = { categoriesValue: '' };
-
-  constructor(public listService: ListService, public router: Router) {
+  userMessage: any;
+  messageSend: FormGroup;
+  schemaMessage: any;
+  // tslint:disable-next-line:max-line-length
+  constructor(public listService: ListService, public router: Router,  public profileApi: ProfileApiService, public messageApi: MessageService) {
     this.dataSource = new MatTableDataSource([]);
     console.log(this.dataSource);
+    this.messageSend = new FormGroup({
+      contenu : new FormControl('', [Validators.required, Validators.minLength(1)]),
+    });
 
 
   }
@@ -67,6 +81,18 @@ export class ProfilelistComponent implements OnInit {
            return listAsFlatString(data).includes(filterObject);
         };
     });
+    this.messageApi.getConversation(this.token['User']._id).subscribe(res => {
+      this.allUser = res;
+      for (let i = 0; i < this.allUser.length; i++) {
+        this.profileApi.getUser(this.allUser[i]).subscribe(data => {
+          this.allUserMessage.push(data);
+        });
+      }
+    });
+    this.scrollToBottom();
+    this.messageApi.getprivateMessageSocket().subscribe(data => {
+      this.privateMessage = [data];
+    });
   }
 applyFilter(filterValue: string) {
   this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -91,6 +117,52 @@ removeFakePath(f) {
 logOut() {
   localStorage.clear();
   this.router.navigateByUrl('/home');
+}
+findConversation(f) {
+  const obj = {id : f};
+this.messageApi.getPrivateConvertion(this.token['User']._id, obj).subscribe(res => {
+  this.privateMessage = [res];
+});
+}
+getUserMessage(f) {
+  this.profileApi.getUser(f).subscribe(res => {
+    this.userMessage = [res];
+  });
+}
+removeFakePathUrl(f) {
+  this.fakePath = f.slice(12, f.length);
+  return this.fakePath;
+}
+sendMessage(f) {
+  this.schemaMessage = {
+    userOne : this.token['User']._id,
+    userTwo : f,
+    messages: [{
+      contenu : this.messageSend.value.contenu,
+      date : Date.now(),
+      from : this.token['User']._id,
+      to: f
+    }],
+  };
+  this.messageApi.sendMessage(this.schemaMessage).subscribe(res => {
+     this.findConversation(f);
+    this.messageSend.patchValue({
+      contenu: '',
+    });
+  });
+}
+// tslint:disable-next-line:use-life-cycle-interface
+ngAfterViewChecked() {
+  this.scrollToBottom();
+}
+scrollToBottom(): void {
+  try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+  } catch (err) { }
+}
+getId(f) {
+  this.profileApi.setId(f);
+  this.router.navigateByUrl('/viewprofile');
 }
 
 }

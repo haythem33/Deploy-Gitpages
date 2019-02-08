@@ -112,7 +112,7 @@ visible = true;
             month: new FormControl ('', [Validators.required, CustomValidation.checkLimit(1, 100000000)]),
         });
         this.messageSend = new FormGroup({
-          contenu : new FormControl('', [Validators.required, Validators.minLength(2)]),
+          contenu : new FormControl('', [Validators.required, Validators.minLength(1)]),
         });
    }
 
@@ -125,7 +125,6 @@ visible = true;
     } else {
       this.accountname = this.token['data'].username;
       this.accountemail = this.token['data'].email;
-      console.log(this.accountemail);
     }
     this.profileApi.getprofileApi(this.token['data'].code).subscribe(res => {
       this.exp = res['experience'];
@@ -142,17 +141,18 @@ visible = true;
     });
     this.messageApi.getConversation(this.token['User']._id).subscribe(res => {
       this.allUser = res;
-      console.log(this.allUser);
       for (let i = 0; i < this.allUser.length; i++) {
         this.profileApi.getUser(this.allUser[i]).subscribe(data => {
           this.allUserMessage.push(data);
-          console.log(this.allUserMessage);
         });
       }
     });
     this.scrollToBottom();
     this.messageApi.getprivateMessageSocket().subscribe(data => {
       this.privateMessage = [data];
+    });
+    this.messageApi.getAllMessageSocket().subscribe(data => {
+      console.log(data);
     });
   }
 
@@ -162,7 +162,6 @@ visible = true;
   }
   addAboutMe() {
     this.profileApi.postApiAbout(this.token['data'].code, this.aboutMe.value).subscribe(res => {
-      console.log(res);
       this.afficherAboutMe = res['aboutme'];
       this.aboutMelenght = 1;
       this.togglemodal = '<button data-toggle="modal" data-target="#aboutMe" class="add-new-field float-right">Edit</button>';
@@ -180,7 +179,6 @@ visible = true;
     const fba = new FormData();
     fba.append('file', this.fileUpload[0]);
     this.profileApi.uploadFile(this.token['data'].code, fba).subscribe(res => {
-      console.log(res);
     });
   }
   addExp() {
@@ -275,7 +273,6 @@ sendMessage(f) {
     }],
   };
   this.messageApi.sendMessage(this.schemaMessage).subscribe(res => {
-    console.log(res);
      this.findConversation(f);
     this.messageSend.patchValue({
       contenu: '',

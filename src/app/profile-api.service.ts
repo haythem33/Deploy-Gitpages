@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProfileApiService {
-
+Id;
   constructor(public http: HttpClient) { }
 postApiAbout(code, form) {
   return this.http.post(`http://localhost:4000/profileConsultant/postProfile/${code}`, form);
@@ -41,5 +41,10 @@ setSalary(code, form) {
 getUser(id) {
   return this.http.get(`http://localhost:4000/profileConsultant/user/${id}`);
 }
-
+setId(f) {
+  this.Id = f;
+}
+getId() {
+  return this.Id;
+}
 }
