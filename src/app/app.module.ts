@@ -1,18 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-=======
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,7 +37,6 @@ const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
     HttpClientModule,
     Control,
     SocketIoModule.forRoot(config),
->>>>>>> e41ee4ab29552ac61e451d643d51a6239d86b8c6
   ],
   providers: [],
   bootstrap: [AppComponent]

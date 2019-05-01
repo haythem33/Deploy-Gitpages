@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-const routes: Routes = [];
-=======
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -40,7 +34,6 @@ const routes: Routes = [
     component : ViewprofileComponent
   }
 ];
->>>>>>> e41ee4ab29552ac61e451d643d51a6239d86b8c6
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
