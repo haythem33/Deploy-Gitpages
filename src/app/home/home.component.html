@@ -1,0 +1,613 @@
+<header>
+  <nav class="navbar navbar-expand-xl absolute-nav transparent-nav cp-nav navbar-light bg-light fluid-nav">
+    <a class="navbar-brand" href="index.html">
+      <img src="./../../assets/logo.png" class="img-fluid" alt="">
+    </a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto job-browse">
+
+
+      </ul>
+
+
+      <ul class="navbar-nav ml-auto account-nav">
+
+        <li class="menu-item login-popup"><button title="Title" type="button" data-toggle="modal" data-target="#exampleModalLong">Login</button></li>
+        <li class="menu-item login-popup"><button title="Title" type="button" data-toggle="modal" data-target="#exampleModalLong5">Register</button></li>
+      </ul>
+
+    </div>
+  </nav>
+  <!-- Modal -->
+  <!--LoginModal-->
+  <div class="account-entry">
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i data-feather="user"></i>Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="loginForm">
+              <div class="form-group">
+                <input type="email" formControlName="loginEmail" placeholder="Email Address" class="form-control">
+              </div>
+              <div class="form-group">
+                <input type="password" formControlName="loginPassword" placeholder="Password" class="form-control">
+              </div>
+              <div class="more-option">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Remember Me
+                  </label>
+                </div>
+                <a href="#">Forget Password?</a>
+              </div>
+              <button (click)="confirmLogin()" id="closeModal" class="button primary-bg btn-block">Login</button>
+            </form>
+            <div class="shortcut-login">
+              <span>Or connect with</span>
+              <div class="buttons">
+                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
+                <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
+              </div>
+              <p>Don't have an account? <a href="#">Register</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End Of Login Modal-->
+    <!--Chose Modal-->
+    <div class="modal fade" id="exampleModalLong5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i data-feather="edit"></i>Registration</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="account-type">
+
+                <a  data-dismiss="modal" data-toggle="modal" href="#exampleModalLong2" >Consultant</a>
+                <a data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong4" >Company</a>
+
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+    <!--End Of chose Modal-->
+    <!--Modal Registration Consultant-->
+    <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLong2" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i data-feather="edit"></i>Registration</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="account-type">
+
+              <a class="candidate-acc active ">Consultant</a>
+
+            </div>
+            <form [formGroup]="consultant">
+              <div class="form-group">
+                <input type="text" maxlength="19" minlength="3"
+                formControlName="username" placeholder="Username"
+                 [ngClass]="{ 'is-invalid': consultant.get('username').touched && consultant.get('username').invalid}"
+                  class="form-control">
+                <div class="invalid-feedback">Minimum 3 caracter</div>
+              </div>
+              <div class="form-group">
+                <input type="email"  formControlName="email" placeholder="Email Address" class="form-control"
+                 [ngClass]="{ 'is-invalid': consultant.get('email').touched && consultant.get('email').invalid}">
+                 <div class="invalid-feedback">Invalid mail</div>
+              </div>
+              <div class="form-group">
+                <input type="password" minlength="3" maxlength="30" formControlName="password" placeholder="Password" class="form-control"
+                 [ngClass]="{ 'is-invalid': consultant.get('password').touched && consultant.get('password').invalid}">
+                 <div class="invalid-feedback">The Password must have a minimum of 4 caracter</div>
+              </div>
+              <div class="more-option terms">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                  <label class="form-check-label" for="defaultCheck2">
+                    I accept the <a href="#">terms & conditions</a>
+                  </label>
+                </div>
+              </div>
+              <button (click)="registerApiConsultant()" class="button primary-bg btn-block">Register</button>
+            </form>
+
+
+            <div class="shortcut-login">
+              <span>Or connect with</span>
+              <div class="buttons">
+                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
+                <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
+              </div>
+              <p>Already have an account? <a href="#">Login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--End Of ModalRegister Consultant-->
+  <div class="modal fade" id="exampleModalLong4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i data-feather="edit"></i>Registration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="account-type">
+              <a class="candidate-acc active ">Company</a>
+          </div>
+          <form [formGroup]="company">
+            <div class="form-group">
+              <input formControlName="companyname" placeholder="Company Name" class="form-control"
+              type="text" maxlength="19" minlength="3" [ngClass]="{ 'is-invalid': company.get('companyname').touched && company.get('companyname').invalid}">
+               <div class="invalid-feedback">Must have a minimum of 3 caracter</div>
+            </div>
+            <div class="form-group">
+              <input type="email" formControlName="companyemail" placeholder="Email Address" class="form-control"
+              [ngClass]="{ 'is-invalid': company.get('companyemail').touched && company.get('companyemail').invalid}">
+              <div class="invalid-feedback">Invalid email</div>
+            </div>
+            <div class="form-group">
+              <input formControlName="companypassword" type="password" placeholder="Password" class="form-control"
+               maxlength="30" minlength="3"
+               [ngClass]="{ 'is-invalid': company.get('companypassword').touched && company.get('companypassword').invalid}">
+              <div class="invalid-feedback">The Password must have a minimum of 4 caracter</div>
+            </div>
+            <div class="more-option terms">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                <label class="form-check-label" for="defaultCheck2">
+                  I accept the <a href="#">terms & conditions</a>
+                </label>
+              </div>
+            </div>
+            <button (click)="registerApiCompany()" class="button primary-bg btn-block">Register</button>
+          </form>
+          <div class="shortcut-login">
+            <span>Or connect with</span>
+            <div class="buttons">
+              <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Facebook</a>
+              <a href="#" class="google"><i class="fab fa-google"></i>Google</a>
+            </div>
+            <p>Already have an account? <a href="#">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+<!-- Header End -->
+
+<!-- Banner -->
+<div class="banner banner-4 banner-4-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="banner-content">
+          <h1>The Easiest Way to Find Consultants</h1>
+          <h5> Find Consultants, Coaches & Experts</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Banner End -->
+
+<!-- Explore Job -->
+<div class="section-padding-top padding-bottom-90">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="section-header">
+          <h2>Explore The Right Consultant</h2>
+          <p>Some key info for find Consultant easily</p>
+        </div>
+      </div>
+    </div>
+    <div class="padding-bottom-60">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="categories">
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="bar-chart-2"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Accounting / Finance<span>(233)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="edit"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Education<span>(45)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="feather"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Design & Creative<span>(147)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="briefcase"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Health Care<span>(87)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="package"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Engineer & Architects<span>(367)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="pie-chart"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Marketing & Sales<span>(41)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="command"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Garments / Textile<span>(126)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="life-buoy"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Customer Support<span>(161)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="headphones"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Digital Media<span>(69)</span></a></h5>
+                </div>
+                <div class="category">
+                  <div class="icon">
+                    <i data-feather="radio"></i>
+                  </div>
+                  <h5><a href="job-listing.html">Telecommunication<span>(92)</span></a></h5>
+                </div>
+                <span class="vr vr-1"></span>
+                <span class="vr vr-2"></span>
+                <span class="vr vr-3"></span>
+                <span class="vr vr-4"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+<!-- Explore Job End -->
+<!-- Fun Facts -->
+<div class="padding-top-90 padding-bottom-60 fact-bg">
+  <div class="container">
+    <div class="row fact-items">
+
+      <div class="col-md-6 col-sm-6">
+        <div class="fact">
+          <div class="fact-icon">
+            <i data-feather="users"></i>
+          </div>
+          <p class="fact-number"><span class="count" data-form="0" data-to="4000"></span></p>
+          <p class="fact-name">Cansultants</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="fact">
+          <div class="fact-icon">
+            <i data-feather="award"></i>
+          </div>
+          <p class="fact-number"><span class="count" data-form="0" data-to="1366"></span></p>
+          <p class="fact-name">Companies</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Fun Facts End -->
+<div class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="call-to-action-box candidate-box">
+            <div class="icon">
+              <img src="./../../assets/register-box/1.png" alt="">
+            </div>
+            <span>Are You</span>
+            <h3>Cansultant?</h3>
+            <a href="#" data-toggle="modal" data-target="#exampleModalLong2">Register Now <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="call-to-action-box employer-register">
+            <div class="icon">
+              <img src="./../../assets/register-box/2.png" alt="">
+            </div>
+            <span>Are You</span>
+            <h3>Company?</h3>
+            <a href="#" data-toggle="modal" data-target="#exampleModalLong4">Register Now <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal-->
+
+<!-- Testimonial -->
+<div class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="testimonial">
+          <div class="testimonial-quote">
+            <img src="./../../assets/testimonial/quote.png" class="img-fluid" alt="">
+          </div>
+          <div class="testimonial-for">
+            <div class="testimonial-item">
+              <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob One”</p>
+              <h5>Maria Marlin @ Google</h5>
+            </div>
+            <div class="testimonial-item">
+              <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Two”</p>
+              <h5>Laura Harper @ Amazon</h5>
+            </div>
+            <div class="testimonial-item">
+              <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Three”</p>
+              <h5>John Doe @ Envato</h5>
+            </div>
+            <div class="testimonial-item">
+              <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Four”</p>
+              <h5>Jenny Doe @ Dribbble</h5>
+            </div>
+            <div class="testimonial-item">
+              <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Five”</p>
+              <h5>Michle Clark @ Apple</h5>
+            </div>
+            <div class="testimonial-item">
+              <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Two”</p>
+              <h5>Laura Harper @ Amazon</h5>
+            </div>
+            <div class="testimonial-item">
+              <p>“On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charmsto send our denim shorts wardrob Three”</p>
+              <h5>John Doe @ Envato</h5>
+            </div>
+          </div>
+          <div class="testimonial-nav">
+            <div class="commenter-thumb">
+              <img src="./../../assets/testimonial/thumb-1.jpg" class="img-fluid commenter" alt="">
+              <img src="./../../assets/testimonial/1.png" class="comapnyLogo" alt="">
+            </div>
+            <div class="commenter-thumb">
+              <img src="./../../assets/testimonial/thumb-2.jpg" class="img-fluid commenter" alt="">
+              <img src="./../../assets/testimonial/2.png" class="comapnyLogo" alt="">
+            </div>
+            <div class="commenter-thumb">
+              <img src="./../../assets/testimonial/thumb-3.jpg" class="img-fluid commenter" alt="">
+              <img src="./../../assets/testimonial/3.png" class="comapnyLogo" alt="">
+            </div>
+            <div class="commenter-thumb">
+              <img src="./../../assets/testimonial/thumb-4.jpg" class="img-fluid commenter" alt="">
+              <img src="./../../assets/testimonial/4.png" class="comapnyLogo" alt="">
+            </div>
+            <div class="commenter-thumb">
+              <img src="./../../assets/testimonial/thumb-5.jpg" class="img-fluid commenter" alt="">
+              <img src="./../../assets/testimonial/5.png" class="comapnyLogo" alt="">
+            </div>
+            <div class="commenter-thumb">
+              <img src="./../../assets/testimonial/thumb-2.jpg" class="img-fluid commenter" alt="">
+              <img src="./../../assets/testimonial/2.png" class="comapnyLogo" alt="">
+            </div>
+            <div class="commenter-thumb">
+              <img src="./../../assets/testimonial/thumb-3.jpg" class="img-fluid commenter" alt="">
+              <img src="./../../assets/testimonial/3.png" class="comapnyLogo" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Testimonial End -->
+
+<!-- Career Advice -->
+<div class="padding-bottom-90">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="section-header">
+          <h2>Career Advice</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <article class="blog-grid">
+          <div class="body">
+            <span class="date">22 <span>Dec</span></span>
+            <h3><a href="blog-details.html">Who chooses to enjoy a pleasure</a></h3>
+            <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which</p>
+          </div>
+          <div class="info">
+            <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>
+            <span class="comments"><a href="#"><i data-feather="message-circle"></i>42</a></span>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="blog-grid">
+          <div class="body">
+            <span class="date">22 <span>Dec</span></span>
+            <h3><a href="blog-details.html">Who chooses to enjoy a pleasure</a></h3>
+            <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which</p>
+          </div>
+          <div class="info">
+            <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>
+            <span class="comments"><a href="#"><i data-feather="message-circle"></i>42</a></span>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="blog-grid">
+          <div class="body">
+            <span class="date">22 <span>Dec</span></span>
+            <h3><a href="blog-details.html">Who chooses to enjoy a pleasure</a></h3>
+            <p>Combined with a handful of model sentence structures, to generate lorem Ipsum which</p>
+          </div>
+          <div class="info">
+            <span class="author"><a href="#"><i data-feather="user"></i>Robert Karlos</a></span>
+            <span class="comments"><a href="#"><i data-feather="message-circle"></i>42</a></span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Career Advice End -->
+
+<!-- App Download -->
+<div class="padding-top-90 padding-bottom-90 app-download-bg">
+  <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Information</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Consultants</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Career Counseling</a></li>
+                <li><a href="#">My Oficiona</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Video Guides</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Companies</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Products/Service</a></li>
+                <li><a href="#">Post a Job</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1 col-sm-6">
+          <div class="footer-widget footer-newsletter">
+            <h4>Newsletter</h4>
+            <p>Get e-mail updates about our latest news and Special offers.</p>
+            <div class="newsletter-form form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email address...">
+              </div>
+              <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
+              <p class="newsletter-error">0 - Please enter a value</p>
+              <p class="newsletter-success">Thank you for subscribing!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- App Download End -->
+
+<!-- Footer -->
+<footer class="footer-bg">
+  <div class="footer-top border-bottom section-padding-top padding-bottom-40">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="footer-logo">
+            <a href="#">
+              <img src="./../../assets/footer-logo.png" class="img-fluid" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="footer-social">
+            <ul class="social-icons">
+              <li><a href="#"><i data-feather="facebook"></i></a></li>
+              <li><a href="#"><i data-feather="twitter"></i></a></li>
+              <li><a href="#"><i data-feather="linkedin"></i></a></li>
+              <li><a href="#"><i data-feather="instagram"></i></a></li>
+              <li><a href="#"><i data-feather="youtube"></i></a></li>
+            </ul>
+            <select class="selectpicker select-language" id="select-country">
+              <option value="United States of America" selected>EN</option>
+              <option value="United Kingdom">GB</option>
+              <option value="Spain">ES</option>
+              <option value="Portugal">PT</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom-area">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="footer-bottom border-top">
+            <div class="row">
+              <div class="col-lg-6">
+                <p class="copyright-text">Copyright <a href="#">Oficiona</a> 2018, All right reserved</p>
+              </div>
+              <div class="col-lg-6">
+                <div class="back-to-top">
+                  <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

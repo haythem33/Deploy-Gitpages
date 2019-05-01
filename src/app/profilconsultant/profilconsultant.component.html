@@ -1,0 +1,858 @@
+<header class="header-2">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="header-top">
+          <div class="logo-area">
+            <a href="#"><img src="./../../assets/logo-2.png" alt=""></a>
+          </div>
+          <div class="header-top-toggler">
+            <div class="header-top-toggler-button"></div>
+          </div>
+          <div class="top-nav">
+            <div class="dropdown header-top-notification">
+              <a href="#" data-toggle="modal" data-target="#ModalMessage" class="notification-button">Inbox</a>
+
+            </div>
+            <div class="dropdown header-top-account">
+              <a href="#" class="account-button">My Account</a>
+              <div class="account-card">
+                <div class="header-top-account-info">
+                  <a href="#" class="account-thumb">
+                    <img src="./../../assets/account/thumb-1.jpg" class="img-fluid" alt="">
+                  </a>
+                  <div class="account-body">
+                    <h5><a href="#">{{accountname}}</a></h5>
+                    <span class="mail">{{accountemail}}</span>
+                  </div>
+                </div>
+                <ul class="account-item-list">
+                  <li><a href="javascript:void(0)" (click)="logOut()"><span class="ti-power-off"></span>Log Out</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="navbar navbar-expand-lg cp-nav-2 bg-transparent">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse navbar-fixed-top" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="menu-item active"><a title="Home" href="home">Home</a></li>
+              <li class="menu-item dropdown">
+
+
+              <li class="menu-item dropdown">
+                <a title="" href="profilelist" aria-expanded="false">ConsultantList</a>
+              </li>
+              <li class="menu-item dropdown">
+                <a title="" href="profilconsultant" aria-expanded="false">Profile</a>
+
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Breadcrumb -->
+<div class="alice-bg padding-top-70 padding-bottom-70">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="breadcrumb-area">
+          <h1>My Profile</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="breadcrumb-form">
+          <!--form-->
+          <div action="#">
+
+            <!--form-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+<!--modal aboutMe-->
+<div class="account-entry">
+  <div class="modal fade" id="aboutMe" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i data-feather="user"></i>AboutMe</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--form-->
+          <form [formGroup]="aboutMe">
+            <div class="form-group">
+              <input type="text" maxlength="20" formControlName="name" placeholder="Name" class="form-control">
+              <div class="text-danger" *ngIf="aboutMe.controls['name'].touched && aboutMe.controls['name'].invalid">required</div>
+            </div>
+            <div class="form-group">
+              <input type="text" formControlName="lastname" placeholder="Lastname" class="form-control">
+              <div class="text-danger" *ngIf="aboutMe.controls['lastname'].touched && aboutMe.controls['lastname'].invalid">required</div>
+            </div>
+            <div class="form-group">
+              <input type="number" formControlName="telephone" placeholder="Tel" class="form-control">
+              <div class="text-danger" *ngIf="aboutMe.controls['telephone'].touched && aboutMe.controls['telephone'].invalid">Error</div>
+            </div>
+            <div class="form-group">
+
+              <mat-select class="class-of-dropdown" placeholder="Your City" formControlName="adresse" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let city of citys" [value]="city.name">
+                  {{city.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf=" aboutMe.controls['adresse'].touched  && aboutMe.controls['adresse'].hasError('required')">Please
+                choose a City</mat-error>
+
+            </div>
+            <div class="form-group">
+              <input type="file" accept="image/x-png,image/gif,image/jpeg" formControlName="photo" (change)="filechangeEvent($event)"
+                name="file" id="file" class="inputfile" />
+              <label class="inputlabel" for="file">Choose Your photo</label>
+              <p>{{removeFakePathUrl(aboutMe.value.photo)}}</p>
+            </div>
+            <button [disabled]="aboutMe.invalid" data-dismiss="modal" (click)="addAboutMe();uploadFile()" class="button primary-bg btn-block">Add</button>
+            <!--form-->
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal aboutMe-->
+<!--Modal Experience-->
+<div class="account-entry">
+  <div class="modal fade" id="experience" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i data-feather="user"></i>Experience</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--form-->
+          <form [formGroup]="experience">
+            <div>
+              <div class="form-group">
+                <input type="number" formControlName="Duration" placeholder="experiencePeriode" class="form-control">
+                <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].hasError('required') "
+                  class="text-danger">Required</div>
+                <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].invalid" class="text-danger">the
+                  Maximum year is 60</div>
+              </div>
+              <div class="form-group">
+                <input type="text" formControlName="CompanyName" placeholder="companyName" class="form-control">
+                <div *ngIf="experience.controls['CompanyName'].touched && experience.controls['CompanyName'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
+              <div class="form-group">
+                <input type="text" formControlName="Poste" placeholder="poste" class="form-control">
+                <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
+              <div class="form-group">
+                <textarea type="text" minlength="2" maxlength="100" formControlName="Description" placeholder="a small description"
+                  class="form-control"></textarea>
+                <div *ngIf="experience.controls['Description'].touched && experience.controls['Description'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
+
+              <button (click)="addExp()" data-dismiss="modal" class="button primary-bg btn-block">Add</button>
+            </div>
+            <!--form-->
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Experience -->
+<!--Modal Edit Experience-->
+<div class="account-entry">
+  <div class="modal fade" id="editexperience" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i data-feather="user"></i>Experience</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--form-->
+          <form [formGroup]="experience">
+            <div>
+              <div class="form-group">
+                <input type="number" value="{{exp[index]?.Duration}}" formControlName="Duration" placeholder="experiencePeriode"
+                  class="form-control">
+                <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].hasError('required') "
+                  class="text-danger">Required</div>
+                <div *ngIf="experience.controls['Duration'].touched && experience.controls['Duration'].invalid" class="text-danger">the
+                  Maximum year is 60</div>
+              </div>
+              <div class="form-group">
+                <input type="text" value="{{exp[index]?.CompanyName}}" formControlName="CompanyName" placeholder="companyName"
+                  class="form-control">
+                <div *ngIf="experience.controls['CompanyName'].touched && experience.controls['CompanyName'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
+              <div class="form-group">
+                <input type="text" value="{{exp[index]?.Poste}}" formControlName="Poste" placeholder="poste" class="form-control">
+                <div *ngIf="experience.controls['Poste'].touched && experience.controls['Poste'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
+
+              <div class="form-group">
+                <textarea type="text" value="{{exp[index]?.Description}}" minlength="2" maxlength="100" formControlName="Description"
+                  placeholder="a small description" class="form-control"></textarea>
+                <div *ngIf="experience.controls['Description'].touched && experience.controls['Description'].hasError('required') "
+                  class="text-danger">Required</div>
+              </div>
+              <button [disabled]="experience.invalid" (click)="editExp()" data-dismiss="modal" class="button primary-bg btn-block">Edit</button>
+            </div>
+            <!--form-->
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Of Modal Edit Experience-->
+<!--Modal Full Profile-->
+<div class="modal fade bd-example-modal-xl" id="FullProfile" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header" *ngFor="let abo of afficherAboutMe">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-img">
+              <img src="http://localhost:4000/{{removeFakePathUrl(abo.photo)}}" alt="" />
+              <div class="file btn btn-lg btn-primary">
+                Change Photo
+                <input type="file" name="file" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" style="margin-top:40px;">
+            <div class="profile-head">
+
+              <div class="row profile-tab" style="margin-bottom:20px;">
+              <div class="col-md-3">
+                <label>Full Name :</label>
+              </div>
+              <div class="col-md-3">
+                <p> {{abo.name}} {{abo.lastname}}</p>
+              </div>
+            </div>
+            <div class="row profile-tab" style="margin-bottom:20px;">
+                <div class="col-md-3">
+                  <label>Email :</label>
+                </div>
+                <div class="col-md-3">
+                  <p>{{accountemail}}</p>
+                </div>
+              </div>
+              <div class="row profile-tab" style="margin-bottom:20px;">
+                  <div class="col-md-3">
+                    <label>City :</label>
+                  </div>
+                  <div class="col-md-3">
+                    <p>{{abo.adresse}}</p>
+                  </div>
+                </div>
+                <div class="row profile-tab" style="margin-bottom:20px;">
+                    <div class="col-md-3">
+                      <label>Telephone :</label>
+                    </div>
+                    <div class="col-md-3">
+                      <p>{{abo.telephone}}</p>
+                    </div>
+                  </div>
+                  <div class="row profile-tab" style="margin-bottom:20px;">
+                      <div class="col-md-3">
+                        <label>Disponibilité :</label>
+                      </div>
+                      <div class="col-md-3">
+                        <p>{{inputValue}}</p>
+                      </div>
+                    </div>
+                    <div class="row profile-tab" style="margin-bottom:20px;">
+                        <div class="col-md-3">
+                          <label>Categorie :</label>
+                        </div>
+                        <div class="col-md-3">
+                          <p>{{inputValue2}}</p>
+                        </div>
+                      </div>
+
+
+            </div>
+          </div>
+          <div class="col-md-2 profile-tab">
+            <input style="margin-bottom: 20px;" type="submit" data-dismiss="modal" class="profile-edit-btn" name="btnAddMore"
+              value="Exit" /><br>
+               <label style="margin-left: 37px;">Skills</label>
+               <div class="row" *ngFor="let skill of skills">
+
+                    <mat-chip-list style="margin-bottom:5px; margin-left: 37px;">
+                   <mat-chip color="primary" selected>{{skill.name}}</mat-chip>
+                  </mat-chip-list>
+
+               </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:20px;" class="profile-head">
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    aria-selected="true">Experience</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                    aria-selected="false">Salary</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" >
+            <div class="tab-content profile-tab" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div>
+                  <div *ngFor="let ex of exp; let i = index">
+                   <h6 style="margin-top: 10px;margin-bottom:10px;color: #246df8;">Experience {{i + 1}}</h6>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>CompanyName</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{ex.CompanyName}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Poste</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{ex.Poste}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>experiencePeriode</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>6 year</p>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab" >
+                <div *ngFor="let money of getSalary">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Per Day :</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{money.day}}$</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Per Week</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{money.week}}$</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Per Month</label>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{money.month}}$</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<!--End Of Modal Full Profile-->
+<!--Modal fullConversation Message-->
+<div class="modal fade right" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+      <div class="modal-content">
+        <div class="modal-header messageBox">
+          <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let data of allUserMessage; let i = index">
+            <div *ngFor="let datas of [data]">
+              <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
+                data-target="#sideModalTR" class="row messagePointer">
+                <div *ngFor="let image of datas.aboutme" class="col-md-2">
+                  <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
+                </div>
+                <div class="col-md-2">
+                  <h6>{{datas.user.username}}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--End Of Modal fullConversation Message-->
+<!--Modal Private MessageConversation-->
+<div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  messagedialog modal-side modal-bottom-left" role="document">
+
+
+    <div   class="modal-content">
+      <div class="modal-header" *ngFor="let use of userMessage">
+        <h4 class="modal-title w-100" id="myModalLabel">{{use.user.username}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div #scrollMe  class="modal-body messagebody">
+        <div *ngFor="let msg of privateMessage">
+          <div  *ngFor="let sms of msg?.messages">
+            <div class="row justify-content-end" *ngIf="sms.from === token['User']._id">
+
+              <div style="margin-bottom: 10px;" class="col-md-5">
+
+                  <p class="speech-bubble">{{sms.contenu}}</p>
+
+              </div>
+
+
+            </div>
+            <div class="row" *ngIf="sms.from !== token['User']._id">
+              <div style="margin-bottom: 10px;" class="col-md-4">
+
+                  <p class="speech-bubble2">{{sms.contenu}}</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer" *ngFor="let use of userMessage" [formGroup]="messageSend">
+
+          <mat-form-field class="example-full-width">
+              <textarea formControlName="contenu" class="example-form" matInput placeholder="new Message"></textarea>
+              </mat-form-field>
+              <button [disabled]="messageSend.invalid" (click)="sendMessage(use.user._id)"  color="primary" mat-icon-button><i class="material-icons">arrow_forward_ios</i></button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Private MessageConversation-->
+<div class="alice-bg section-padding-bottom">
+  <div class="container no-gliters">
+    <div class="row no-gliters">
+      <div class="col">
+        <div class="post-container">
+          <div class="post-content-wrapper">
+            <!--form-->
+            <div action="#" class="job-post-form">
+              <div class="basic-info-input">
+                <h4><i data-feather="plus-circle"></i>Profile</h4>
+                <div id="about" class="row">
+                  <label style="color:#246df8" class="col-md-9 col-form-label">About Me</label>
+                  <div class="col-md-3" id="buttonModal">
+                    <button data-toggle="modal" data-target="#aboutMe" class="add-new-field">+ add</button>
+                  </div>
+                </div>
+                <!--NgFor-->
+                <div *ngIf="afficherAboutMe?.length === 1">
+                  <div *ngFor="let about of afficherAboutMe">
+
+                    <div id="education" class="row">
+                      <label class="col-md-6 col-form-label">Full Name :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{about.name}} {{about.lastname}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-md-6 col-form-label">City :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{about.adresse}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="experience" class="row">
+                      <label class="col-md-6 col-form-label">Tel :</label>
+                      <div>
+                        <div class="form-group col-md-6">
+                          <h6>{{about.telephone}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--End Of NgFor aboutme-->
+                </div>
+                <div style="margin-top:20px;" class="row">
+                  <label style="font-size:15px; color: #246df8" class="col-md-9 col-form-label">Experience</label>
+                  <div class="col-md-3">
+                    <div id="expButton" class="form-group">
+                      <button data-toggle="modal" data-target="#experience" class="add-new-field">+ add </button>
+                    </div>
+                  </div>
+                </div>
+                <!--NgFor Experience-->
+                <div *ngIf="exp?.length > 0">
+                  <div *ngFor="let expp of exp; let i = index">
+                    <div class="row">
+                      <h4 style="margin-top:20px;color: #246df8;" class="col-md-9">experience {{i + 1}}</h4>
+                      <div class="col-md-3">
+                        <div id="expButton" class="form-group">
+                          <button style="margin-top:20px;" data-toggle="modal" (click)="getIndex(i)" data-target="#editexperience"
+                            class="add-new-field">Edit</button>
+                        </div>
+                      </div>
+                      <label class="col-md-6 col-form-label">Year :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{expp.Duration}} Year</h6>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Company name :</label>
+                      </div>
+                      <div class="col-md-6">
+                        <h6>{{expp.CompanyName}}</h6>
+                      </div>
+
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <label class="col-form-label">Poste :</label>
+                      </div>
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <h6 style="word-wrap:break-word">{{expp.Poste}}</h6>
+                      </div>
+                      <label style="margin-top:10px;margin-bottom: 10px;" class="col-md-6 col-form-label">Description:</label>
+                      <div style="margin-top:10px;margin-bottom: 10px;" class="col-md-6">
+                        <h6>{{expp.Description}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <!--End Of Ngfor Experience-->
+                </div>
+                <div style="margin-top: 40px;" class="row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Disponibilité : </label>
+                  <div class="col-md-4">
+                    <div *ngIf="conditionMaterial === 1">
+                      <mat-select placeholder="Choose" (valueChange)="addDispo($event)">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let choice of DispoChoice" [value]="choice.name">
+                          {{choice.name}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div *ngIf="inputValue?.length > 0">
+                      <h6>{{inputValue}} </h6>
+
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <button (click)="editDispo()" class="add-new-field ">Edit</button>
+                  </div>
+                </div>
+
+                <div style="margin-top: 20px;" class="row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Categorie : </label>
+                  <div class="col-md-4">
+                    <div id="deleteEdit" *ngIf="conditionMaterial2 > 0">
+                      <mat-select placeholder="Choose" (valueChange)="addCategorie($event)">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let choice of categoriesValue" [value]="choice.category">
+                          {{choice.category}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+
+                    <div *ngIf="inputValue2?.length > 0">
+                      <h6>{{inputValue2}}</h6>
+
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button (click)="editCategorie()" class="add-new-field">Edit</button>
+                  </div>
+                </div>
+                <div style="margin-top:20px;" class="form-group row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Skills : </label>
+                  <div class="col-md-9">
+                    <mat-form-field class="example-chip-list">
+                      <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable"
+                          (removed)="pushSkill(skills);remove(skill)">
+                          {{skill.name}}
+                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="New skill..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event);pushSkill(skills)">
+                      </mat-chip-list>
+                    </mat-form-field>
+
+                  </div>
+                </div>
+                <div class="form-group row">
+
+                  <label class="col-md-2 col-form-label labelSalary">Salary : </label>
+
+                  <div [formGroup]="Salary">
+                    <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.day}}" matInput placeholder="Per Day"
+                        formControlName="day" type="number" class="example-right-align">
+                      <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.week}}" matInput placeholder="Per Week"
+                        formControlName="week" type="number" class="example-right-align">
+                      <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-3">
+                      <input (change)="addSalery()" value="{{getSalary[0]?.month}}" matInput placeholder="Per Month"
+                        formControlName="month" type="number" class="example-right-align">
+                      <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button data-toggle="modal" data-target="#FullProfile" style="width:150px; margin-top:30px;margin-bottom:30px;"
+                    class="add-new-field">Save Changes</button>
+                </div>
+              </div>
+              <!--form-->
+            </div>
+          </div>
+          <div class="post-sidebar">
+            <h5><i data-feather="arrow-down-circle"></i>{{accountname}}</h5>
+            <ul class="sidebar-menu">
+              <li><a href="#full-name">{{accountemail}}</a></li>
+              <li><a href="javascript:void(0)">View My Profile</a></li>
+              <li><a href="#about"></a></li>
+              <li><a href="#education"></a></li>
+              <li><a href="#experience"></a></li>
+              <li><a href="#skill"></a></li>
+              <li><a href="#qualification"></a></li>
+              <li><a href="#portfolio"></a></li>
+              <li><a href="#cv"></a></li>
+              <li><a href="#cover"></a></li>
+              <li><a href="#profile"></a></li>
+              <li><a href="#details"></a></li>
+            </ul>
+
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action -->
+<div class="call-to-action-bg padding-top-90 padding-bottom-90">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="call-to-action-2">
+          <div class="call-to-action-content">
+            <h2>For Find Your Dream Job or Candidate</h2>
+            <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
+              luctus nec.</p>
+          </div>
+          <div class="call-to-action-button">
+            <a href="#" class="button">Add Resume</a>
+            <span>Or</span>
+            <a href="#" class="button">Post A Job</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Call to Action End -->
+
+<!-- Footer -->
+<footer class="footer-bg">
+  <div class="footer-top border-bottom section-padding-top padding-bottom-40">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="footer-logo">
+            <a href="#">
+              <img src="./../../assets/footer-logo.png" class="img-fluid" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="footer-social">
+            <ul class="social-icons">
+              <li><a href="#"><i data-feather="facebook"></i></a></li>
+              <li><a href="#"><i data-feather="twitter"></i></a></li>
+              <li><a href="#"><i data-feather="linkedin"></i></a></li>
+              <li><a href="#"><i data-feather="instagram"></i></a></li>
+              <li><a href="#"><i data-feather="youtube"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Information</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Job Seekers</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Career Counseling</a></li>
+                <li><a href="#">My Oficiona</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Video Guides</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Employers</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Products/Service</a></li>
+                <li><a href="#">Post a Job</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1 col-sm-6">
+          <div class="footer-widget footer-newsletter">
+            <h4>Newsletter</h4>
+            <p>Get e-mail updates about our latest news and Special offers.</p>
+            <!--form-->
+            <div action="#" class="newsletter-form form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email address...">
+              </div>
+              <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
+              <p class="newsletter-error">0 - Please enter a value</p>
+              <p class="newsletter-success">Thank you for subscribing!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-area">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="footer-bottom border-top">
+            <div class="row">
+              <div class="col-xl-4 col-lg-5 order-lg-2">
+                <div class="footer-app-download">
+                  <a href="#" class="apple-app">Apple Store</a>
+                  <a href="#" class="android-app">Google Play</a>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-4 order-lg-1">
+                <p class="copyright-text">Copyright <a href="#">Oficiona</a> 2018, All right reserved</p>
+              </div>
+              <div class="col-xl-4 col-lg-3 order-lg-3">
+                <div class="back-to-top">
+                  <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,497 @@
+<header class="header-2">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="header-top">
+          <div class="logo-area">
+            <a href="#"><img src="./../../assets/logo-2.png" alt=""></a>
+          </div>
+          <div class="header-top-toggler">
+            <div class="header-top-toggler-button"></div>
+          </div>
+          <div class="top-nav">
+            <div class="dropdown header-top-notification">
+              <a href="#" data-toggle="modal" data-target="#ModalMessage" class="notification-button">Inbox</a>
+
+            </div>
+            <div class="dropdown header-top-account">
+              <a  class="account-button">My Account</a>
+              <div class="account-card">
+                <div class="header-top-account-info">
+                  <a href="#" class="account-thumb">
+                    <img src="./../../assets/account/thumb-1.jpg" class="img-fluid" alt="">
+                  </a>
+                  <div class="account-body">
+                    <h5><a href="javascript:void(0)">{{accountname}}</a></h5>
+                    <span class="mail">{{accountemail}}</span>
+                  </div>
+                </div>
+                <ul class="account-item-list">
+                  <li><a href="javascript:void(0)" (click)="logOut()"><span class="ti-power-off"></span>Log Out</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="navbar navbar-expand-lg cp-nav-2 bg-transparent">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse navbar-fixed-top" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="menu-item active"><a title="Home" href="home">Home</a></li>
+              <li class="menu-item dropdown">
+
+
+              <li class="menu-item dropdown">
+                <a title="" href="profilelist" aria-expanded="false">ConsultantList</a>
+              </li>
+              <li class="menu-item dropdown">
+                <a title="" href="profilconsultant" aria-expanded="false">Profile</a>
+
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Breadcrumb -->
+<div class="alice-bg padding-top-70 padding-bottom-70">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="breadcrumb-area">
+          <h1>Profile</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="breadcrumb-form">
+          <!--form-->
+          <div action="#">
+
+            <!--form-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<!--Modal fullConversation Message-->
+<div class="modal fade right" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+      <div class="modal-content">
+        <div class="modal-header messageBox">
+          <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let data of allUserMessage; let i = index">
+            <div *ngFor="let datas of [data]">
+              <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
+                data-target="#sideModalTR" class="row messagePointer">
+                <div *ngFor="let image of datas.aboutme" class="col-md-2">
+                  <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
+                </div>
+                <div class="col-md-2">
+                  <h6>{{datas.user.username}}</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--End Of Modal fullConversation Message-->
+<!--Modal Private MessageConversation-->
+ <div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  messagedialog modal-side modal-bottom-left" role="document">
+
+
+    <div   class="modal-content">
+      <div class="modal-header" *ngFor="let use of userMessage">
+        <h4 class="modal-title w-100" id="myModalLabel">{{use.user.username}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div   class="modal-body messagebody">
+        <div *ngFor="let msg of privateMessage">
+          <div  *ngFor="let sms of msg?.messages">
+            <div class="row justify-content-end" *ngIf="sms.from === token['User']._id">
+
+              <div style="margin-bottom: 10px;" class="col-md-5">
+
+                  <p class="speech-bubble">{{sms.contenu}}</p>
+
+              </div>
+
+
+            </div>
+            <div class="row" *ngIf="sms.from !== token['User']._id">
+              <div style="margin-bottom: 10px;" class="col-md-4">
+
+                  <p class="speech-bubble2">{{sms.contenu}}</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer" *ngFor="let use of userMessage" [formGroup]="messageSend">
+
+          <mat-form-field class="example-full-width">
+              <textarea formControlName="contenu" class="example-form" matInput placeholder="new Message"></textarea>
+              </mat-form-field>
+              <button [disabled]="messageSend.invalid" (click)="sendMessage(use.user._id)"  color="primary" mat-icon-button><i class="material-icons">arrow_forward_ios</i></button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Private MessageConversation-->
+<div class="alice-bg section-padding-bottom">
+  <div class="container no-gliters">
+    <div class="row no-gliters">
+      <div class="col">
+        <div class="post-container">
+          <div class="post-content-wrapper">
+            <!--form-->
+            <div action="#" class="job-post-form">
+              <div class="basic-info-input" *ngFor="let consultant of social">
+                  <button style="margin-top:10px;" href="javascript:void(0)" class="float-right add-new-field"  (click)="findConversation(consultant.user);getUserMessage(consultant.user)" data-toggle="modal" data-target="#sideModalTR">Send Message</button>
+                <h4><i data-feather="plus-circle"></i>Profile</h4>
+
+                <div id="about" class="row">
+                  <label style="color:#246df8" class="col-md-9 col-form-label">About Me</label>
+                </div>
+                <!--NgFor aboutMe-->
+                <div *ngIf="afficherAboutMe?.length === 1">
+                  <div *ngFor="let about of afficherAboutMe">
+
+                    <div id="education" class="row">
+                      <label class="col-md-6 col-form-label">Full Name :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{about.name}} {{about.lastname}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-md-6 col-form-label">City :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{about.adresse}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="experience" class="row">
+                      <label class="col-md-6 col-form-label">Tel :</label>
+                      <div>
+                        <div class="form-group col-md-6">
+                          <h6>{{about.telephone}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--End Of NgFor aboutme-->
+                </div>
+                <div style="margin-top:20px;" class="row">
+                  <label style="font-size:15px; color: #246df8" class="col-md-9 col-form-label">Experience</label>
+                  <div class="col-md-3">
+                    <div id="expButton" class="form-group">
+                    </div>
+                  </div>
+                </div>
+                <!--NgFor Experience-->
+                <div *ngIf="exp?.length > 0">
+                  <div *ngFor="let expp of exp; let i = index">
+                    <div class="row">
+                      <h4 style="margin-top:20px;color: #246df8;" class="col-md-9">experience {{i + 1}}</h4>
+                      <div class="col-md-3">
+                        <div id="expButton" class="form-group">
+                      </div>
+                      </div>
+                      <label class="col-md-6 col-form-label">Year :</label>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <h6>{{expp.Duration}} Year</h6>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label">Company name :</label>
+                      </div>
+                      <div class="col-md-6">
+                        <h6>{{expp.CompanyName}}</h6>
+                      </div>
+
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <label class="col-form-label">Poste :</label>
+                      </div>
+                      <div class="col-md-6" style="margin-top:30px;margin-bottom:30px;">
+                        <h6 style="word-wrap:break-word">{{expp.Poste}}</h6>
+                      </div>
+                      <label style="margin-top:10px;margin-bottom: 10px;" class="col-md-6 col-form-label">Description:</label>
+                      <div style="margin-top:10px;margin-bottom: 10px;" class="col-md-6">
+                        <h6>{{expp.Description}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <!--End Of Ngfor Experience-->
+                </div>
+                <div style="margin-top: 40px;" class="row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Disponibilité : </label>
+                  <div class="col-md-4">
+
+                  </div>
+
+                  <div class="col-md-3">
+                    <div>
+                      <h6>{{inputValue}}</h6>
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div style="margin-top: 20px;" class="row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Categorie : </label>
+                  <div class="col-md-4">
+
+                  </div>
+                  <div class="col-md-3">
+
+                    <h6>{{inputValue2}}</h6>
+                  </div>
+
+                </div>
+                <div style="margin-top:20px;" class="form-group row">
+                  <label style="color:#246df8;" class="col-md-2 col-form-label">Skills : </label>
+                  <div class="col-md-9">
+                      <mat-chip-list >
+                          <mat-chip *ngFor="let skill of skills" color="primary" selected>{{skill.name}}</mat-chip>
+                         </mat-chip-list>
+                  </div>
+                </div>
+                <div class="form-group row">
+
+                  <label class="col-md-2 col-form-label labelSalary">Salary : </label>
+
+
+                </div>
+                <div *ngFor="let money of getSalary">
+                 <div class="row">
+                   <div class="col-md-6">
+                     <label class="col-form-label">Per Day :</label>
+                   </div>
+                   <div class="col-md-6">
+                      <h6>{{money.day}}$</h6>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="col-md-6">
+                     <label class="col-form-label">Per Week</label>
+                   </div>
+                   <div class="col-md-6">
+                     <h6>{{money.week}}$</h6>
+                   </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-md-6">
+                      <label class="col-form-label">Per Month</label>
+                    </div>
+                    <div class="col-md-6">
+                      <h6>{{money.month}}$</h6>
+                    </div>
+                  </div>
+              </div>
+            </div>
+              <!--form-->
+            </div>
+          </div>
+          <div class="post-sidebar">
+            <h5 *ngFor="let img of afficherAboutMe"><i data-feather="arrow-down-circle"></i><img class="imageUser2" src="http://localhost:4000/{{removeFakePathUrl(img.photo)}}"></h5>
+            <ul *ngFor="let app of social" class="sidebar-menu">
+              <li><a href="javascript:void(0)">{{app.username}}</a></li>
+              <li><a href="javascript:void(0)">{{app.email}}</a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+              <li><a href="javascript:void(0)"></a></li>
+            </ul>
+
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action -->
+<div class="call-to-action-bg padding-top-90 padding-bottom-90">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="call-to-action-2">
+          <div class="call-to-action-content">
+            <h2>For Find Your Dream Job or Candidate</h2>
+            <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
+              luctus nec.</p>
+          </div>
+          <div class="call-to-action-button">
+            <a href="#" class="button">Add Resume</a>
+            <span>Or</span>
+            <a href="#" class="button">Post A Job</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Call to Action End -->
+
+<!-- Footer -->
+<footer class="footer-bg">
+  <div class="footer-top border-bottom section-padding-top padding-bottom-40">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="footer-logo">
+            <a href="#">
+              <img src="./../../assets/footer-logo.png" class="img-fluid" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="footer-social">
+            <ul class="social-icons">
+              <li><a href="#"><i data-feather="facebook"></i></a></li>
+              <li><a href="#"><i data-feather="twitter"></i></a></li>
+              <li><a href="#"><i data-feather="linkedin"></i></a></li>
+              <li><a href="#"><i data-feather="instagram"></i></a></li>
+              <li><a href="#"><i data-feather="youtube"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Information</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Job Seekers</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Career Counseling</a></li>
+                <li><a href="#">My Oficiona</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Video Guides</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Employers</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Products/Service</a></li>
+                <li><a href="#">Post a Job</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1 col-sm-6">
+          <div class="footer-widget footer-newsletter">
+            <h4>Newsletter</h4>
+            <p>Get e-mail updates about our latest news and Special offers.</p>
+            <!--form-->
+            <div action="#" class="newsletter-form form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email address...">
+              </div>
+              <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
+              <p class="newsletter-error">0 - Please enter a value</p>
+              <p class="newsletter-success">Thank you for subscribing!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-area">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="footer-bottom border-top">
+            <div class="row">
+              <div class="col-xl-4 col-lg-5 order-lg-2">
+                <div class="footer-app-download">
+                  <a href="#" class="apple-app">Apple Store</a>
+                  <a href="#" class="android-app">Google Play</a>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-4 order-lg-1">
+                <p class="copyright-text">Copyright <a href="#">Oficiona</a> 2018, All right reserved</p>
+              </div>
+              <div class="col-xl-4 col-lg-3 order-lg-3">
+                <div class="back-to-top">
+                  <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+

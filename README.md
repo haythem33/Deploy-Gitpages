@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # Consultant
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
+=======
+# ConsultantFlow
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.6.
+>>>>>>> e41ee4ab29552ac61e451d643d51a6239d86b8c6
 
 ## Development server
 

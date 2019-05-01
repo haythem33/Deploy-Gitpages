@@ -1,0 +1,438 @@
+<header class="header-2">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="header-top">
+          <div class="logo-area">
+            <a href="#"><img src="./../../assets/logo-2.png" alt=""></a>
+          </div>
+          <div class="header-top-toggler">
+            <div class="header-top-toggler-button"></div>
+          </div>
+          <div class="top-nav">
+            <div class="dropdown header-top-notification">
+              <a href="#" data-toggle="modal" data-target="#ModalMessage" class="notification-button">Inbox</a>
+
+            </div>
+            <div class="dropdown header-top-account">
+              <a href="#" class="account-button">My Account</a>
+              <div class="account-card">
+                <div class="header-top-account-info">
+                  <a href="#" class="account-thumb">
+                    <img src="./../../assets/account/thumb-1.jpg" class="img-fluid" alt="">
+                  </a>
+                  <div class="account-body">
+                    <h5><a href="#">{{accountname}}</a></h5>
+                    <span class="mail">{{accountemail}}</span>
+                  </div>
+                </div>
+                <ul class="account-item-list">
+                  <li><a href="javascript:void(0)" (click)="logOut()"><span class="ti-power-off"></span>Log Out</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="navbar navbar-expand-lg cp-nav-2 bg-transparent">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse navbar-fixed-top" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="menu-item active"><a title="Home" href="home">Home</a></li>
+              <li class="menu-item dropdown">
+
+
+              <li class="menu-item dropdown">
+                <a title="" href="profilelist" aria-expanded="false">ConsultantList</a>
+              </li>
+              <li class="menu-item dropdown">
+                <a title="" href="profilconsultant" aria-expanded="false">Profile</a>
+
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Breadcrumb -->
+<div class="alice-bg padding-top-70 padding-bottom-70">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="breadcrumb-area">
+          <h1>Candidates List</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Candidates List</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="breadcrumb-form">
+          <!--form-->
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Full Message-->
+<div class="modal fade right" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header messageBox">
+        <h4 class="modal-title w-100" id="myModalLabel">Message Box</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let data of allUserMessage; let i = index">
+          <div *ngFor="let datas of [data]">
+            <div (click)="findConversation(datas.user._id);getUserMessage(datas.user._id)" data-toggle="modal"
+              data-target="#sideModalTR" class="row messagePointer">
+              <div *ngFor="let image of datas.aboutme" class="col-md-2">
+                <img class="imageUser" src="http://localhost:4000/{{removeFakePathUrl(image.photo)}}">
+              </div>
+              <div class="col-md-2">
+                <h6>{{datas.user.username}}</h6>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Of ModalFull Message-->
+<!--Modal Private MessageConversation-->
+<div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog  messagedialog modal-side modal-bottom-left" role="document">
+
+
+    <div   class="modal-content">
+      <div class="modal-header" *ngFor="let use of userMessage">
+        <h4 class="modal-title w-100" id="myModalLabel">{{use.user.username}}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div #scrollMe  class="modal-body messagebody">
+        <div *ngFor="let msg of privateMessage">
+          <div  *ngFor="let sms of msg?.messages">
+            <div class="row justify-content-end" *ngIf="sms.from === token['User']._id">
+
+              <div style="margin-bottom: 10px;" class="col-md-5">
+
+                  <p class="speech-bubble">{{sms.contenu}}</p>
+
+              </div>
+
+
+            </div>
+            <div class="row" *ngIf="sms.from !== token['User']._id">
+              <div style="margin-bottom: 10px;" class="col-md-4">
+
+                  <p class="speech-bubble2">{{sms.contenu}}</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer" *ngFor="let use of userMessage" [formGroup]="messageSend">
+
+          <mat-form-field class="example-full-width">
+              <textarea formControlName="contenu" class="example-form" matInput placeholder="new Message"></textarea>
+              </mat-form-field>
+              <button [disabled]="messageSend.invalid" (click)="sendMessage(use.user._id)"  color="primary" mat-icon-button><i class="material-icons">arrow_forward_ios</i></button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal Private MessageConversation-->
+<!-- Breadcrumb End -->
+
+<!-- Job Listing -->
+<div class="alice-bg section-padding-bottom">
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="col">
+        <div class="candidate-container">
+          <div class="filtered-candidate-wrapper">
+
+            <div class="candidate-view-controller-wrapper">
+              <div class="candidate-view-controller">
+                <div class="controller list active">
+                  <i data-feather="menu"></i>
+                </div>
+                <div class="controller grid">
+                  <i data-feather="grid"></i>
+                </div>
+                <div class="candidate-view-filter">
+                  <select class="selectpicker">
+                    <option value="" selected>Most Recent</option>
+                    <option value="california">Top Rated</option>
+                    <option value="las-vegas">Most Popular</option>
+                  </select>
+                </div>
+              </div>
+              <div class="showing-number">
+                <span>Showing 1–12 of 28 Jobs</span>
+              </div>
+            </div>
+            <div  *ngIf="dataSource"  class="candidate-filter-result">
+              <div class="candidate" *ngFor="let consultant of dataSource.filteredData ">
+                <div class="thumb">
+                  <a href="#">
+
+                    <img src="http://localhost:4000/{{removeFakePathUrl(consultant.aboutme[0]?.photo)}}" class="img-fluid" alt="">
+                  </a>
+                </div>
+                <div class="body">
+                  <div class="content" *ngFor="let personalInfo of consultant.aboutme">
+                    <h4><a href="candidate-details.html">{{personalInfo.name}} {{personalInfo.lastname}}</a></h4>
+                    <div class="info">
+                      <span class="work-post"><a href="#"><i data-feather="check-square"></i></a></span>
+                      <span class="location"><a href="#"><i data-feather="map-pin"></i>{{personalInfo.adresse}}</a></span>
+                    </div>
+                  </div>
+                  <div class="button-area">
+                    <a href="javascript:void(0)" (click)="getId(consultant.code)">View Resume</a><br>
+                     <a style="margin-top:10px;" href="javascript:void(0)"  (click)="findConversation(consultant.user);getUserMessage(consultant.user)" data-toggle="modal" data-target="#sideModalTR">Send Message</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="candidate-filter-wrapper">
+            <div class="selected-options">
+              <div class="selection-title">
+                <h4>You Selected</h4>
+                <a href="#">Clear All</a>
+              </div>
+              <ul class="filtered-options">
+              </ul>
+            </div>
+            <div class="candidate-filter-dropdown category">
+              <mat-select (valueChange)="FilterConsultant($event)" placeholder="category">
+                <mat-option>---</mat-option>
+                <mat-option *ngFor="let cat of categoriesValue" [value]="cat.category">
+
+                  {{cat.category}}
+                </mat-option>
+              </mat-select>
+            </div>
+
+            <div class="candidate-filter-dropdown location">
+              <select class="selectpicker">
+                <option value="" selected>Location</option>
+                <option value="california">Chicago</option>
+                <option value="california">New York City</option>
+                <option value="california">San Francisco</option>
+                <option value="california">Washington</option>
+                <option value="california">Boston</option>
+                <option value="california">Los Angeles</option>
+                <option value="california">Seattle</option>
+                <option value="california">Las Vegas</option>
+                <option value="california">San Diego</option>
+              </select>
+            </div>
+            <div data-id="candidate-type" class="candidate-filter candidate-type">
+              <h4 class="option-title">Job Type</h4>
+              <ul>
+                <li class="full-time"><i data-feather="clock"></i><a href="#" data-attr="Full Time">Full Time</a></li>
+                <li class="part-time"><i data-feather="clock"></i><a href="#" data-attr="Part Time">Part Time</a></li>
+
+              </ul>
+            </div>
+            <div data-id="experience" class="candidate-filter experience">
+              <h4 class="option-title">Experience</h4>
+              <ul>
+                <li><a href="#" data-attr="Fresh">Fresh</a></li>
+                <li><a href="#" data-attr="Less than 1 year">Less than 1 year</a></li>
+                <li><a href="#" data-attr="2 Year">2 Year</a></li>
+                <li><a href="#" data-attr="3 Year">3 Year</a></li>
+                <li><a href="#" data-attr="4 Year">4 Year</a></li>
+                <li><a href="#" data-attr="5 Year">5 Year</a></li>
+                <li><a href="#" data-attr="Avobe 5 Years">Avobe 5 Years</a></li>
+              </ul>
+            </div>
+            <div class="candidate-filter">
+              <h4 class="option-title">Salary Range</h4>
+              <div class="price-range-slider">
+                <div class="nstSlider" data-range_min="0" data-range_max="10000" data-cur_min="0" data-cur_max="6130">
+                  <div class="bar"></div>
+                  <div class="leftGrip"></div>
+                  <div class="rightGrip"></div>
+                  <div class="grip-label">
+                    <span class="leftLabel"></span>
+                    <span class="rightLabel"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Job Listing End -->
+
+<!-- Call to Action -->
+<div class="call-to-action-bg padding-top-90 padding-bottom-90">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="call-to-action-2">
+          <div class="call-to-action-content">
+            <h2>For Find Your Dream Job or Candidate</h2>
+            <p>Add resume or post a job. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
+              luctus nec.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Call to Action End -->
+
+<!-- Footer -->
+<footer class="footer-bg">
+  <div class="footer-top border-bottom section-padding-top padding-bottom-40">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="footer-logo">
+            <a href="#">
+              <img src="./../../assets/footer-logo.png" class="img-fluid" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="footer-social">
+            <ul class="social-icons">
+              <li><a href="#"><i data-feather="facebook"></i></a></li>
+              <li><a href="#"><i data-feather="twitter"></i></a></li>
+              <li><a href="#"><i data-feather="linkedin"></i></a></li>
+              <li><a href="#"><i data-feather="instagram"></i></a></li>
+              <li><a href="#"><i data-feather="youtube"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-widget-wrapper padding-bottom-60 padding-top-80">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Information</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Job Seekers</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Career Counseling</a></li>
+                <li><a href="#">My Oficiona</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Video Guides</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+          <div class="footer-widget footer-shortcut-link">
+            <h4>Employers</h4>
+            <div class="widget-inner">
+              <ul>
+                <li><a href="#">Create Account</a></li>
+                <li><a href="#">Products/Service</a></li>
+                <li><a href="#">Post a Job</a></li>
+                <li><a href="#">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1 col-sm-6">
+          <div class="footer-widget footer-newsletter">
+            <h4>Newsletter</h4>
+            <p>Get e-mail updates about our latest news and Special offers.</p>
+            <!--form-->
+            <div action="#" class="newsletter-form form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email address...">
+              </div>
+              <button class="btn button primary-bg">Submit<i class="fas fa-caret-right"></i></button>
+              <p class="newsletter-error">0 - Please enter a value</p>
+              <p class="newsletter-success">Thank you for subscribing!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-area">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="footer-bottom border-top">
+            <div class="row">
+              <div class="col-xl-4 col-lg-5 order-lg-2">
+                <div class="footer-app-download">
+                  <a href="#" class="apple-app">Apple Store</a>
+                  <a href="#" class="android-app">Google Play</a>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-4 order-lg-1">
+                <p class="copyright-text">Copyright <a href="#">Oficiona</a> 2018, All right reserved</p>
+              </div>
+              <div class="col-xl-4 col-lg-3 order-lg-3">
+                <div class="back-to-top">
+                  <a href="#">Back to top<i class="fas fa-angle-up"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer End -->

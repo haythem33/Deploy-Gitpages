@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "extends": "../tslint.json",
   "rules": {
     "directive-selector": [
@@ -14,4 +15,21 @@
       "kebab-case"
     ]
   }
+=======
+    "extends": "../tslint.json",
+    "rules": {
+        "directive-selector": [
+            true,
+            "attribute",
+            "app",
+            "camelCase"
+        ],
+        "component-selector": [
+            true,
+            "element",
+            "app",
+            "kebab-case"
+        ]
+    }
+>>>>>>> e41ee4ab29552ac61e451d643d51a6239d86b8c6
 }
